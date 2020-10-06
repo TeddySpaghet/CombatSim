@@ -1,0 +1,27 @@
+.characterimages {
+    display: flex;
+    margin: 50px 10px 10px 50px;
+    justify-content: center;
+}
+.character {
+    margin: 0px 10px 10px 0px;
+}
+
+#battleScreen {
+    display: none;
+}
+
+.startButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+
+}
+
+.playerTracker0, .playerTracker1 {
+    display: none;
+}
+.active {
+    display: block;
+}

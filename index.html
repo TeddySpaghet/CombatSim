@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project1test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+    <div class="playerTracker0 active">
+        <div id="pTracker0">Player 1's turn</div>
+    </div>
+    <div class="playerTracker1">
+        <div id="pTracker1">Player 2's turn</div>
+    </div>
+    <section id="selectScreen">
+        <div class="characterimages">
+            <img src="https://placebear.com/200/400" class="character">
+            <img src="https://placebear.com/200/400" class="character">
+            <img src="https://placebear.com/200/400" class="character">
+            <img src="https://placebear.com/200/400" class="character">
+        </div>
+        <!--<button>Select Character</button>-->
+        <div class="startButton">
+            <button id="bStart">Battle Start</button>
+        </div>
+    </section>
+
+    <section id="battleScreen">
+
+        <div>
+            <img src="https://placebear.com/200/400" class="character" id="p0character">
+            <img src="https://placebear.com/200/400" class="character" id="p1character">
+        </div>
+
+        <div class="characterAbilities">
+            <ul class="p0Abalities"> 
+                <li id="p0Atk1">Basic Attack</li>
+                <li id="p0Atk2">Strong Attack</li>
+                <li id="p0Atk3">Special Attack</li>
+            </ul>
+            <ul class="p1Abilities">
+                <li id="p1Atk1">Basic Attack</li>
+                <li id="p1Atk2">Strong Attack</li>
+                <li id="p1Atk3">Special Attack</li>
+            </ul>
+        </div>
+
+        <div class="endButton">
+            <button id="bEnd">Character Select</button>
+        </div>
+
+        <div class="combatLog">
+            <p id="log">Combat Log</p>
+        </div>
+    </section>
+
+</body>
+</html>

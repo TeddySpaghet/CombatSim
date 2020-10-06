@@ -10,9 +10,10 @@ I should probably have an RNG function in the global context that can be called 
 
 //define global game variables
 
-let activePlayer, gamePlaying
+let activePlayer, gamePlaying, player0Char, player1Char
 activePlayer = 0;
-
+player0Char = "cleric"
+player1Char = "fighter"
 
 //base character creation and attribute allocation
 
@@ -51,8 +52,8 @@ class character {
             nextPlayer()
     }
 
-    constructor (name,health,damage, icon,rng) {
-        this.name = name;
+    constructor (name,health,damage, icon,rng) {    // need to figure out how to add the clasID to the extended classes
+        this.name = name;  
         this.health = health;
         this.damage = damage;
         this.icon = icon;
@@ -79,8 +80,8 @@ class testCharacter extends character {
 
 }
 
-const testChar = new testCharacter ("Test", "20" , 1, "placeholder", 0)
-const testChar2 = new testCharacter ("Test(icle)", "25", 1, "placeholder", 0)
+const testChar = new testCharacter ("Test", "20" , 1, "placeholder", 0, 0)
+const testChar2 = new testCharacter ("Test(icle)", "25", 1, "placeholder", 0, 0)
 console.log(testChar);
 console.log(testChar2);
 
@@ -97,6 +98,10 @@ class fighter extends character {
             console.log('notworking3')
         }
         nextPlayer()
+    }
+    constructor (name,health,damage, icon,rng) {
+        super(name,health,damage,icon,rng);
+        this.classID = 1;
     }
 
 }
@@ -115,6 +120,10 @@ class mage extends character {
         }
         nextPlayer()
     }
+    constructor (name,health,damage, icon,rng) {
+        super(name,health,damage,icon,rng);
+        this.classID = 2;
+    }
 
 }
 
@@ -128,7 +137,10 @@ class cleric extends character {
         
         nextPlayer()
     }
-
+    constructor (name,health,damage, icon,rng) {
+        super(name,health,damage,icon,rng);
+        this.classID = 3;
+    }
 }
 class thief extends character {
     thiefSpecial() {
@@ -144,8 +156,87 @@ class thief extends character {
         }
         nextPlayer()
     }
+    constructor (name,health,damage, icon,rng) {
+        super(name,health,damage,icon,rng);
+        this.classID = 4;
+    }
 
 }
+const testCleric = new cleric ("Cleric", "10" , 1, "placeholder", 0)
+console.log(testCleric);
+// BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION
+// Create a massive function that incorporates all of the attack functions
+// have it run the characterclass ID as argument
+// run a bunch of conditionals that will run the attack functions based on ID
+// setup event listeners that can vary based on ID
+// ???
+// PROFIT
+
+function actionSelector (active,classID, actionID) {
+    if (activePlayer !== active) {
+        return alert("Only the active Player can attack!");
+    } 
+    if (classID === 0) {
+        if (actionID === 1) {
+            testChar.attack1()
+        } else if (actionID === 2) {
+            testChar.attack2()
+        } else if (actionID === 3) {
+            testChar.attack3()
+        } else {
+            console.log('error, not a valid action id')
+        }
+    } else if (classID === 1) {
+
+        if (actionID === 1) {
+
+        } else if (actionID === 2) {
+
+        } else if (actionID === 3) {
+            
+        } else {
+            console.log('error, not a valid action id')
+        }
+    } else if (classID === 2) {
+
+        if (actionID === 1) {
+
+        } else if (actionID === 2) {
+
+        } else if (actionID === 3) {
+            
+        } else {
+            console.log('error, not a valid action id')
+        }
+    } else if (classID === 3) {
+
+        if (actionID === 1) {
+
+        } else if (actionID === 2) {
+
+        } else if (actionID === 3) {
+            
+        } else {
+            console.log('error, not a valid action id')
+        }
+    } else if (classID === 4) {
+
+        if (actionID === 1) {
+
+        } else if (actionID === 2) {
+
+        } else if (actionID === 3) {
+            
+        } else {
+            console.log('error, not a valid action id')
+        }
+    } else {
+        console.log('error, not a valid class id')
+    }
+}
+
+
+
 // Button mapping -- screen changers
 
 document.getElementById('bStart').addEventListener('click', () => {
@@ -174,28 +265,18 @@ function nextPlayer() {
 // event listeners for player attacks
 //player 0
 
-   // try putting after the event listener
-function checkActive(active) {
-    console.log(activePlayer)
-    if (activePlayer !== active) {
-        return alert("Only the active Player can attack!");
-    }
-}
+// try putting after the event listener
+
     document.getElementById('p0Atk1').addEventListener('click' , () => {
-        checkActive(0); // need to figure out how to break from this if condition fails
-        testChar.attack1();
+        actionSelector(0,0,3)
     });
 
     document.getElementById('p0Atk2').addEventListener('click' , () => {
-        if(activePlayer === 0) {    //functions fine but seems pretty wet
-            testChar.attack2();
-        } else {
-            return alert("Only the active Player can attack!")
-        }
+        actionSelector(0,0,3)
     });
 
     document.getElementById('p0Atk3').addEventListener('click' , () => {
-        testChar.attack3();
+        actionSelector(0,0,3)
     });
 
 //player 1

@@ -51,6 +51,7 @@ class character {
         this.damage = damage;
         this.icon = icon;
         this.rng = rng;
+        this.player = "";
     }
 }
 
@@ -427,29 +428,46 @@ function assignPlayer(charID){
         document.getElementById(charID).dataset.playerid = 1;
     }
 }
+function assignCharClass(Class) {
+    if (activePlayer === 0) {    
+        Class.player = 0;
+        console.log(Class);
+    }
+    else if (activePlayer === 1) {
+        Class.player = 1;
+        console.log(Class);
+    }
+}
 
 document.getElementById('fighterID').addEventListener('click', () => {
     moveChar(fighterID);
     setCharID('fighterID');
-    assignPlayer('fighterID')
+    assignPlayer('fighterID');
+    assignCharClass(Fighter);
     nextPlayer();
 })
 
 document.getElementById('mageID').addEventListener('click', () => {
     moveChar(mageID);
     setCharID('mageID');
+    assignPlayer('mageID');
+    assignCharClass(Mage);
     nextPlayer();
 })
 
 document.getElementById('clericID').addEventListener('click', () => {
     moveChar(clericID);
     setCharID('clericID');
+    assignPlayer('clericID');
+    assignCharClass(Cleric);
     nextPlayer();
 })
 
 document.getElementById('thiefID').addEventListener('click', () => {
     moveChar(thiefID);
     setCharID('thiefID');
+    assignPlayer('thiefID');
+    assignCharClass(Thief);
     nextPlayer();
 })
 
@@ -493,6 +511,7 @@ things to figure out:
 -potentially create new img objects via JS rather than hardcode them in HTML
 -fleshing out actions to have real impact
 -figure out if changing bits of functions is a thing
+- stretch goal: dynamically change the action names according to character class.
 */
 
 //hp implementation: give characters a max and current hp property

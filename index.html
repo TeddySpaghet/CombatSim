@@ -15,11 +15,11 @@
         <div id="pTracker1">Player 2's turn</div>
     </div>
     <section id="selectScreen">
-        <div class="characterimages">
-            <img src="https://placebear.com/200/400" class="character">
-            <img src="https://placebear.com/200/400" class="character">
-            <img src="https://placebear.com/200/400" class="character">
-            <img src="https://placebear.com/200/400" class="character">
+        <div class="characterimages" id="characterSelect">
+            <img src="https://placebear.com/200/400" class="character" id="fighterID" data-classid="1">
+            <img src="https://placebear.com/200/400" class="character" id="mageID" data-classid="2">
+            <img src="https://placebear.com/200/400" class="character" id="clericID" data-classid="3">
+            <img src="https://placebear.com/200/400" class="character" id="thiefID" data-classid="4">
         </div>
         <!--<button>Select Character</button>-->
         <div class="startButton">
@@ -30,13 +30,13 @@
     <section id="battleScreen">
 
         <div class="battleCharacters">
-            <div id="character0">
+            <div id="character0"> <!--data-classID-->
                 <div class="healthbar0"> XXX/XXX HP </div>
-                <img src="https://placebear.com/200/400" class="character" id="p0character">
+                <!--where i want p0 character to go-->
             </div>
             <div id="character1">
                 <div class="healhbar1"> XXX/XXX HP </div>
-                <img src="https://placebear.com/200/400" class="character" id="p1character">
+                <!-- where I want p1 character to go-->
             </div>
         </div>
 

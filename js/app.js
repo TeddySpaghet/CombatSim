@@ -12,8 +12,7 @@ I should probably have an RNG function in the global context that can be called 
 
 let activePlayer, gamePlaying, player0Char, player1Char
 activePlayer = 0;
-player0Char = "cleric"
-player1Char = "fighter"
+
 
 //base character creation and attribute allocation
 
@@ -162,8 +161,14 @@ class thief extends character {
     }
 
 }
-const testCleric = new cleric ("Cleric", "10" , 1, "placeholder", 0)
-console.log(testCleric);
+// Character creation
+
+const Cleric = new cleric ("Odin", 10 , 1, "placeholder", 0);
+const Fighter = new fighter ("Hendrick", 25, 1, "placeholder", 0);
+const Mage = new mage ("Melody", 15, 1, "placeholder", 0);
+const Thief = new thief ("Theodryn", 15, 1, "placeholder", 0);
+
+
 // BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION
 // Create a massive function that incorporates all of the attack functions
 // have it run the characterclass ID as argument
@@ -175,8 +180,11 @@ console.log(testCleric);
 function actionSelector (active,classID, actionID) {
     if (activePlayer !== active) {
         return alert("Only the active Player can attack!");
-    } 
-    if (classID === 0) {
+    }
+    
+    // data-String data-Class = class.id
+    // data set element
+    if (classID == 0) {
         if (actionID === 1) {
             testChar.attack1()
         } else if (actionID === 2) {
@@ -186,47 +194,47 @@ function actionSelector (active,classID, actionID) {
         } else {
             console.log('error, not a valid action id')
         }
-    } else if (classID === 1) {
+    } else if (classID == 1) {
 
         if (actionID === 1) {
 
         } else if (actionID === 2) {
 
         } else if (actionID === 3) {
-            
+            Fighter.fighterSpecial()
         } else {
             console.log('error, not a valid action id')
         }
-    } else if (classID === 2) {
+    } else if (classID == 2) {
 
         if (actionID === 1) {
 
         } else if (actionID === 2) {
 
         } else if (actionID === 3) {
-            
+            Mage.mageSpecial()
         } else {
             console.log('error, not a valid action id')
         }
-    } else if (classID === 3) {
+    } else if (classID == 3) {
 
         if (actionID === 1) {
-
+            Cleric.attack1()
         } else if (actionID === 2) {
-
+            Cleric.attack2()
         } else if (actionID === 3) {
-            
+            Cleric.clericSpecial()    
         } else {
             console.log('error, not a valid action id')
         }
-    } else if (classID === 4) {
+    } else if (classID == 4) {
 
         if (actionID === 1) {
 
         } else if (actionID === 2) {
 
         } else if (actionID === 3) {
-            
+            Thief.thiefSpecial()
         } else {
             console.log('error, not a valid action id')
         }
@@ -245,12 +253,21 @@ document.getElementById('bStart').addEventListener('click', () => {
     nextPlayer()
 });
 
+
 document.getElementById('bEnd').addEventListener('click', () => {
     document.getElementById('battleScreen').style.display =  "none";
     document.getElementById('selectScreen').style.display = "block";
-    nextPlayer()
+    resetCharacters();
+    nextPlayer();
 });
 
+//end button moves back the selected characters to the character select screen
+function resetCharacters(){
+    characterSelect.appendChild(fighterID);
+    characterSelect.appendChild(mageID);
+    characterSelect.appendChild(clericID);
+    characterSelect.appendChild(thiefID);
+}
 //switching players
 
 function nextPlayer() {
@@ -261,35 +278,79 @@ function nextPlayer() {
     document.querySelector('.playerTracker0').classList.toggle('active');
     document.querySelector('.playerTracker1').classList.toggle('active');
 }
+// Character selection mapping
+function moveChar(charID){
+    if (activePlayer === 0) {
+        character0.appendChild(charID);
+    }
+    else if (activePlayer === 1) {
+        character1.appendChild(charID)
+    }
+}
+function setCharID (charID) {
+    if (activePlayer === 0) {
+        player0Char = document.getElementById(charID)
+        player0Char.dataset.classid 
+    } else if (activePlayer ===1) {
+        player1Char = document.getElementById(charID)
+        player1Char.dataset.classid 
+    }
+}
+document.getElementById('fighterID').addEventListener('click', () => {
+    moveChar(fighterID);
+    setCharID('fighterID');
+    nextPlayer();
+})
+
+document.getElementById('mageID').addEventListener('click', () => {
+    moveChar(mageID);
+    setCharID('mageID');
+    nextPlayer();
+})
+
+document.getElementById('clericID').addEventListener('click', () => {
+    moveChar(clericID);
+    setCharID('clericID');
+    nextPlayer();
+})
+
+document.getElementById('thiefID').addEventListener('click', () => {
+    moveChar(thiefID);
+    setCharID('thiefID');
+    nextPlayer();
+})
+
+//I want to figure out how to use an element's ID to pass inside a funtion's argument
+
 
 // event listeners for player attacks
 //player 0
-
-// try putting after the event listener
+// look at creating a single event listener and then event.target property
 
     document.getElementById('p0Atk1').addEventListener('click' , () => {
-        actionSelector(0,0,3)
+        //data
+        actionSelector(0,player0Char.dataset.classid,1)
     });
 
     document.getElementById('p0Atk2').addEventListener('click' , () => {
-        actionSelector(0,0,3)
+        actionSelector(0,player0Char.dataset.classid,2)
     });
 
     document.getElementById('p0Atk3').addEventListener('click' , () => {
-        actionSelector(0,0,3)
+        actionSelector(0,player0Char.dataset.classid,3)
     });
 
 //player 1
     document.getElementById('p1Atk1').addEventListener('click' , () => {
-        testChar.attack1();
+        actionSelector(1,player1Char.dataset.classid,1)
     });
 
     document.getElementById('p1Atk2').addEventListener('click' , () => {
-        testChar.attack2();
+        actionSelector(1,player1Char.dataset.classid,2)
     });
 
     document.getElementById('p1Atk3').addEventListener('click' , () => {
-        testChar.attack3();
+        actionSelector(1,player1Char.dataset.classid,3)
     });
 
 
@@ -299,5 +360,4 @@ things to figure out:
 -what to do with combat logging
 -how to attach player tags to the characters making it so actions can't be used for the wrong character
 -fleshing out actions to have real impact
--add hp bars
 */

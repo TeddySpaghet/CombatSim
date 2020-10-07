@@ -10,8 +10,11 @@ I should probably have an RNG function in the global context that can be called 
 
 //define global game variables
 
-let activePlayer, gamePlaying, player0Char, player1Char
+let activePlayer, gamePlaying, player0Char, player1Char, combatLog
 activePlayer = 0;
+combatLog = document.querySelector('#combatlog');
+atkLog = document.querySelector('#atklog');
+console.log(combatLog);
 
 
 //base character creation and attribute allocation
@@ -19,6 +22,7 @@ activePlayer = 0;
 class character {
     randomizerD20() {
         this.rng = (Math.floor(Math.random()* 20)+1);
+        this.attackLog();
     }
     randomizerD6() {
         this.rng = (Math.floor(Math.random()* 6)+1);
@@ -32,15 +36,18 @@ class character {
     randomizerD10() {
         this.rng = (Math.floor(Math.random()*10)+1);
     }
+    attackLog() {
+        atkLog.textContent = this.name + " rolled a " + this.rng + " on their attack roll!";
+    }
     attack1 () {
         this.randomizerD20()
         this.randomizerD6();
             if ( this.rng >= 6 && this.rng != 20) {
-                document.getElementById('log').textContent =  this.name + " hits with a light attack dealing " + this.damage * this.rng + " damage to their opponent!";
+                combatLog.textContent =  this.name + " hits with a light attack dealing " + this.damage * this.rng + " damage to their opponent!";
             } else if (this.rng < 6) {
-                document.getElementById('log').textContent =  this.name + " misses their a light attack!";
+                combatLog.textContent =  this.name + " misses their a light attack!";
             } else if (this.rng = 20) { 
-                document.getElementById('log').textContent =  this.name + " critically hits with a light attack!!!";
+                combatLog.textContent =  this.name + " critically hits with a light attack!!!";
             } else {
                 console.log('notworking')
             }
@@ -49,11 +56,11 @@ class character {
     attack2 () {
         this.randomizerD20()
             if ( this.rng >= 12 && this.rng != 20) {
-                document.getElementById('log').textContent =  testChar.name + " hits with a heavy attack!";
+                combatLog.textContent =  testChar.name + " hits with a heavy attack!";
             } else if (this.rng < 12) {
-                document.getElementById('log').textContent =  testChar.name + " misses their heavy attack!";
+                combatLog.textContent =  testChar.name + " misses their heavy attack!";
             } else if (this.rng = 20) { 
-                document.getElementById('log').textContent =  testChar.name + " critically hits with a heavy attack!!!";
+                combatLog.textContent =  testChar.name + " critically hits with a heavy attack!!!";
             } else {
                 console.log('notworking2')
             }
@@ -74,11 +81,11 @@ class testCharacter extends character {
     attack3() {
         this.randomizerD20()
         if ( this.rng >= 10 && this.rng != 20) {
-            document.getElementById('log').textContent =  testChar.name + " hits with a special attack!";
+            combatLog.textContent =  testChar.name + " hits with a special attack!";
         } else if (this.rng < 10) {
-            document.getElementById('log').textContent = testChar.name + " misses their special attack!";
+            combatLog.textContent = testChar.name + " misses their special attack!";
         } else if (this.rng = 20) { 
-            document.getElementById('log').textContent = testChar.name + " critically hits with a special attack!!!";
+            combatLog.textContent = testChar.name + " critically hits with a special attack!!!";
         } else {
             console.log('notworking3')
         }
@@ -98,13 +105,13 @@ class fighter extends character {
             if ( this.rng >= 6 && this.rng != 20) {
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+                combatLog.textContent += "\n " + this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
             } else if (this.rng < 6) {
-                document.getElementById('log').textContent = this.name + "'s blade fails to find their target!";
+                combatLog.textContent += this.name + "'s blade fails to find their target!";
             } else if (this.rng = 20) { 
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                combatLog.textContent += this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
             } else {
                 console.log('notworking')
             }
@@ -116,13 +123,13 @@ class fighter extends character {
             if ( this.rng >= 12 && this.rng != 20) {
                 this.randomizerD12();
                 console.log("Fighter rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " manages to rend their foe with an overhead strike dealing " + (this.damage * this.rng + 3 )+ " damage!";
+                combatLog.textContent = this.name + " manages to rend their foe with an overhead strike dealing " + (this.damage * this.rng + 3 )+ " damage!";
             } else if (this.rng < 12) {
-                document.getElementById('log').textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
+                combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
             } else if (this.rng = 20) { 
                 this.randomizerD12();
                 console.log("Fighter rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " carves their sword deep into their foe with an overhead strike, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage!!!";
+                combatLog.textContent = this.name + " carves their sword deep into their foe with an overhead strike, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage!!!";
             } else {
                 console.log('notworking2')
             }
@@ -133,13 +140,14 @@ class fighter extends character {
         if ( this.rng >= 10 && this.rng < 18) {
             this.randomizerD10();
             console.log("Fighter rolled a " + this.rng);
-            document.getElementById('log').textContent = this.name + " hits with a Swing and Punch combo, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+            combatLog.textContent = this.name + " hits with a Swing and Punch combo, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+            console.log(combatLog.textContent);
         } else if (this.rng < 10) {
-            document.getElementById('log').textContent = this.name + " is unable to connect their Swing and Punch combo!";
+            combatLog.textContent = this.name + " is unable to connect their Swing and Punch combo!";
         } else if (this.rng >= 18) { 
             this.randomizerD10();
             console.log(this.rng);
-            document.getElementById('log').textContent = this.name + " critically hits with their Swing and Punch combo, dealing " + (this.damage * this.rng * 2 + 3 ) + " damage and sending their opponent flying!!!";
+            combatLog.textContent = this.name + " critically hits with their Swing and Punch combo, dealing " + (this.damage * this.rng * 2 + 3 ) + " damage and sending their opponent flying!!!";
         } else {
             console.log('notworking3')
         }
@@ -158,13 +166,13 @@ class mage extends character {
             if ( this.rng >= 6 && this.rng != 20) {
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " sends a firebolt flying at their foe, dealing " + (this.damage * this.rng + 1 )+ " damage!";
+                combatLog.textContent = this.name + " sends a firebolt flying at their foe, dealing " + (this.damage * this.rng + 1 )+ " damage!";
             } else if (this.rng < 6) {
-                document.getElementById('log').textContent = this.name + " is unable to concentrate on their spell!";
+                combatLog.textContent = this.name + " is unable to concentrate on their spell!";
             } else if (this.rng = 20) { 
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " sends their foe reeling with pain, their firebolt is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                combatLog.textContent = this.name + " sends their foe reeling with pain, their firebolt is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
             } else {
                 console.log('notworking')
             }
@@ -176,13 +184,13 @@ class mage extends character {
             if ( this.rng >= 12 && this.rng != 20) {
                 this.randomizerD12();
                 console.log("Mage rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " conjures a powerful fireblast, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+                combatLog.textContent = this.name + " conjures a powerful fireblast, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
             } else if (this.rng < 12) {
-                document.getElementById('log').textContent = this.name + "'s casting of their spell fizzles out, leaving them open to attack!";
+                combatLog.textContent = this.name + "'s casting of their spell fizzles out, leaving them open to attack!";
             } else if (this.rng = 20) { 
                 this.randomizerD12();
                 console.log("Mage rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " summons a huge burst of flames, and critically hits with fireblast for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
+                combatLog.textContent = this.name + " summons a huge burst of flames, and critically hits with fireblast for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
             } else {
                 console.log('notworking2')
             }
@@ -193,13 +201,13 @@ class mage extends character {
         console.log(this.rng)
         if ( this.rng >= 10 && this.rng != 20) {
             this.randomizerD4();
-            document.getElementById('log').textContent = this.name + " hits with two magic missles dealing " + ((this.damage * this.rng + 1) * 2 )+ " damage to their opponent!";
+            combatLog.textContent = this.name + " hits with two magic missles dealing " + ((this.damage * this.rng + 1) * 2 )+ " damage to their opponent!";
         } else if (this.rng < 10) {
             this.randomizerD4();
-            document.getElementById('log').textContent = this.name + " hits with one magic missle dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+            combatLog.textContent = this.name + " hits with one magic missle dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
         } else if (this.rng = 20) { 
             this.randomizerD4();
-            document.getElementById('log').textContent = this.name + " hits with all three magic missle dealing " + ((this.damage * this.rng + 1) * 3 )+ " damage to their opponent!!!";
+            combatLog.textContent = this.name + " hits with all three magic missle dealing " + ((this.damage * this.rng + 1) * 3 )+ " damage to their opponent!!!";
         } else {
             console.log('notworking3')
         }
@@ -218,13 +226,13 @@ class cleric extends character {
             if ( this.rng >= 6 && this.rng != 20) {
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " slams their opponent with their mace, dealing " + (this.damage * this.rng + 1 )+ " damage!";
+                combatLog.textContent = this.name + " slams their opponent with their mace, dealing " + (this.damage * this.rng + 1 )+ " damage!";
             } else if (this.rng < 6) {
-                document.getElementById('log').textContent = this.name + "'s mace fails to find their target!";
+                combatLog.textContent = this.name + "'s mace fails to find their target!";
             } else if (this.rng = 20) { 
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " bashes their opponent in the head, critically hitting and dealing " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                combatLog.textContent = this.name + " bashes their opponent in the head, critically hitting and dealing " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
             } else {
                 console.log('notworking')
             }
@@ -236,13 +244,13 @@ class cleric extends character {
             if ( this.rng >= 12 && this.rng != 20) {
                 this.randomizerD12();
                 console.log("Cleric rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + "'s mace begins to glow with divine light before stricking their opponent, dealing " + (this.damage * this.rng + 3 )+ " damage!";
+                combatLog.textContent = this.name + "'s mace begins to glow with divine light before stricking their opponent, dealing " + (this.damage * this.rng + 3 )+ " damage!";
             } else if (this.rng < 12) {
-                document.getElementById('log').textContent = this.name + " is unable to muster any divine power!";
+                combatLog.textContent = this.name + " is unable to muster any divine power!";
             } else if (this.rng = 20) { 
                 this.randomizerD12();
                 console.log("Cleric rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " bursts with holy power, bashing their opponent and critically hitting dealing " + (this.damage * this.rng * 2 + 3) + " damage!!!";
+                combatLog.textContent = this.name + " bursts with holy power, bashing their opponent and critically hitting dealing " + (this.damage * this.rng * 2 + 3) + " damage!!!";
             } else {
                 console.log('notworking2')
             }
@@ -252,7 +260,7 @@ class cleric extends character {
         this.randomizerD20()
         if ( this.rng >= 7 ) {
             this.randomizerD12();
-            document.getElementById('log').textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + "hp";
+            combatLog.textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + "hp";
         }
         
         nextPlayer()
@@ -268,13 +276,13 @@ class thief extends character {
             if ( this.rng >= 6 && this.rng != 20) {
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " hits with a sneaky stab, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+                combatLog.textContent = this.name + " hits with a sneaky stab, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
             } else if (this.rng < 6) {
-                document.getElementById('log').textContent = this.name + "'s dagger fails to find their target!";
+                combatLog.textContent = this.name + "'s dagger fails to find their target!";
             } else if (this.rng = 20) { 
                 this.randomizerD6();
                 console.log(this.rng)
-                document.getElementById('log').textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage to their opponent!!!";
+                combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage to their opponent!!!";
             } else {
                 console.log('notworking')
             }
@@ -286,13 +294,13 @@ class thief extends character {
             if ( this.rng >= 12 && this.rng != 20) {
                 this.randomizerD12();
                 console.log("Thief rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " stabs their target with a rapid flurry of blows, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+                combatLog.textContent = this.name + " stabs their target with a rapid flurry of blows, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
             } else if (this.rng < 12) {
-                document.getElementById('log').textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
+                combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
             } else if (this.rng = 20) { 
                 this.randomizerD12();
                 console.log("Thief rolled a " + this.rng)
-                document.getElementById('log').textContent = this.name + " overwhelms their oppenent with a precise flurry of blows, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
+                combatLog.textContent = this.name + " overwhelms their oppenent with a precise flurry of blows, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
             } else {
                 console.log('notworking2')
             }
@@ -302,12 +310,12 @@ class thief extends character {
         this.randomizerD20()
         if ( this.rng >= 10 && this.rng != 20) {
             this.randomizerD6();
-            document.getElementById('log').textContent = this.name + " steals his oponent's vitality through vampiric magics, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent and healing for the same amount!";
+            combatLog.textContent = this.name + " steals his oponent's vitality through vampiric magics, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent and healing for the same amount!";
         } else if (this.rng < 10) {
-            document.getElementById('log').textContent = this.name + " misses their Steal Health!";
+            combatLog.textContent = this.name + " misses their Steal Health!";
         } else if (this.rng = 20) { 
             this.randomizerD4();
-            document.getElementById('log').textContent = this.name + " drains the life out of his opponent with strong vampiric magics, dealing" + (this.damage * this.rng * 2 + 1 )+ " to their opponent and healing for the same amount!!!";
+            combatLog.textContent = this.name + " drains the life out of his opponent with strong vampiric magics, dealing" + (this.damage * this.rng * 2 + 1 )+ " to their opponent and healing for the same amount!!!";
         } else {
             console.log('notworking3')
         }
@@ -438,7 +446,7 @@ function nextPlayer() {
 }
 // Character selection mapping
 function moveChar(charID){
-    if (activePlayer === 0) {
+    if (activePlayer === 0) {    // want to make it so that the conditional includes an and && that checks if charID is already a child of character 0 or 1
         character0.appendChild(charID);
     }
     else if (activePlayer === 1) {

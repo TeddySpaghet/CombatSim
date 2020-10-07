@@ -63,13 +63,13 @@ class fighter extends character {
             if ( this.rng >= 6 && this.rng != 20) {
                 this.randomizerD6();
                 console.log(this.rng)
-                combatLog.textContent += "\n " + this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+                combatLog.textContent = "\n " + this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
             } else if (this.rng < 6) {
-                combatLog.textContent += this.name + "'s blade fails to find their target!";
+                combatLog.textContent = this.name + "'s blade fails to find their target!";
             } else if (this.rng = 20) { 
                 this.randomizerD6();
                 console.log(this.rng)
-                combatLog.textContent += this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
             } else {
                 console.log('notworking')
             }
@@ -387,6 +387,10 @@ document.getElementById('bEnd').addEventListener('click', () => {
 
 //end button moves back the selected characters to the character select screen
 function resetCharacters(){
+    document.getElementById('fighterID').dataset.playerid = "";
+    document.getElementById('mageID').dataset.playerid = "";
+    document.getElementById('clericID').dataset.playerid = "";
+    document.getElementById('thiefID').dataset.playerid = "";
     characterSelect.appendChild(fighterID);
     characterSelect.appendChild(mageID);
     characterSelect.appendChild(clericID);
@@ -521,3 +525,5 @@ things to figure out:
 
 // maybe give characters a PlayerControlled property of 0 or 1?
 
+//HOW TO MAKE CHARCATERS TARGET EACH OTHER BASED ON PLAYERS:
+//

@@ -448,6 +448,7 @@ document.getElementById('fighterID').addEventListener('click', () => {
     setCharID('fighterID');
     assignPlayer('fighterID');
     assignCharClass(Fighter);
+    changeActionBox("(Fighter)");
     nextPlayer();
 })
 
@@ -456,6 +457,7 @@ document.getElementById('mageID').addEventListener('click', () => {
     setCharID('mageID');
     assignPlayer('mageID');
     assignCharClass(Mage);
+    changeActionBox("(Mage)");
     nextPlayer();
 })
 
@@ -464,6 +466,7 @@ document.getElementById('clericID').addEventListener('click', () => {
     setCharID('clericID');
     assignPlayer('clericID');
     assignCharClass(Cleric);
+    changeActionBox("(Cleric)");
     nextPlayer();
 })
 
@@ -472,10 +475,23 @@ document.getElementById('thiefID').addEventListener('click', () => {
     setCharID('thiefID');
     assignPlayer('thiefID');
     assignCharClass(Thief);
+    changeActionBox("(Thief)");
     nextPlayer();
 })
 
-//I want to figure out how to use an element's ID to pass inside a funtion's argument
+//Dynamically change the attack box's text to reflect character class
+function changeActionBox (Class) {
+    if (activePlayer === 0) {
+        document.getElementById('p0Atk1').textContent = "Basic attack " + Class;
+        document.getElementById('p0Atk2').textContent = "Heavy attack " + Class;
+        document.getElementById('p0Atk3').textContent = "Special attack " + Class;
+    } else if (activePlayer === 1) {
+        document.getElementById('p1Atk1').textContent = "Basic attack " + Class;
+        document.getElementById('p1Atk2').textContent = "Heavy attack " + Class;
+        document.getElementById('p1Atk3').textContent = "Special attack " + Class;
+    }
+}
+
 
 
 // event listeners for player attacks

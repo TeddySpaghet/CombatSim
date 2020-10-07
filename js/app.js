@@ -15,6 +15,8 @@ activePlayer = 0;
 combatLog = document.querySelector('#combatlog');
 atkLog = document.querySelector('#atklog');
 console.log(combatLog);
+hpLog0 = document.querySelector('.healthbar0');
+hpLog1 = document.querySelector('.healthbar1');
 
 
 //base character creation and attribute allocation
@@ -39,33 +41,10 @@ class character {
     attackLog() {
         atkLog.textContent = this.name + " rolled a " + this.rng + " on their attack roll!";
     }
-    attack1 () {
-        this.randomizerD20()
-        this.randomizerD6();
-            if ( this.rng >= 6 && this.rng != 20) {
-                combatLog.textContent =  this.name + " hits with a light attack dealing " + this.damage * this.rng + " damage to their opponent!";
-            } else if (this.rng < 6) {
-                combatLog.textContent =  this.name + " misses their a light attack!";
-            } else if (this.rng = 20) { 
-                combatLog.textContent =  this.name + " critically hits with a light attack!!!";
-            } else {
-                console.log('notworking')
-            }
-            nextPlayer()
-        }
-    attack2 () {
-        this.randomizerD20()
-            if ( this.rng >= 12 && this.rng != 20) {
-                combatLog.textContent =  testChar.name + " hits with a heavy attack!";
-            } else if (this.rng < 12) {
-                combatLog.textContent =  testChar.name + " misses their heavy attack!";
-            } else if (this.rng = 20) { 
-                combatLog.textContent =  testChar.name + " critically hits with a heavy attack!!!";
-            } else {
-                console.log('notworking2')
-            }
-            nextPlayer()
+    hpTracker() {
+
     }
+    
     constructor (name,health,damage, icon,rng) {    // need to figure out how to add the clasID to the extended classes
         this.name = name;  
         this.health = health;
@@ -76,28 +55,6 @@ class character {
 }
 
 // special class addition, adding a special ability flavored to specific class
-
-class testCharacter extends character {
-    attack3() {
-        this.randomizerD20()
-        if ( this.rng >= 10 && this.rng != 20) {
-            combatLog.textContent =  testChar.name + " hits with a special attack!";
-        } else if (this.rng < 10) {
-            combatLog.textContent = testChar.name + " misses their special attack!";
-        } else if (this.rng = 20) { 
-            combatLog.textContent = testChar.name + " critically hits with a special attack!!!";
-        } else {
-            console.log('notworking3')
-        }
-        nextPlayer()
-    }
-
-}
-
-const testChar = new testCharacter ("Test", "20" , 1, "placeholder", 0, 0)
-const testChar2 = new testCharacter ("Test(icle)", "25", 1, "placeholder", 0, 0)
-console.log(testChar);
-console.log(testChar2);
 
 class fighter extends character {
     fighterLight() {
@@ -462,9 +419,19 @@ function setCharID (charID) {
         player1Char.dataset.classid 
     }
 }
+function assignPlayer(charID){
+    if (activePlayer === 0) {    
+        document.getElementById(charID).dataset.playerid = 0;
+    }
+    else if (activePlayer === 1) {
+        document.getElementById(charID).dataset.playerid = 1;
+    }
+}
+
 document.getElementById('fighterID').addEventListener('click', () => {
     moveChar(fighterID);
     setCharID('fighterID');
+    assignPlayer('fighterID')
     nextPlayer();
 })
 
@@ -524,7 +491,14 @@ document.getElementById('thiefID').addEventListener('click', () => {
 things to figure out: 
 -maybe figure out how to make event listener more DRY
 -potentially create new img objects via JS rather than hardcode them in HTML
--what to do with combat logging
 -fleshing out actions to have real impact
 -figure out if changing bits of functions is a thing
 */
+
+//hp implementation: give characters a max and current hp property
+//character select button will reset the current hp to max hp 
+// make the html healthbars dynamic by linking the character0.classID to it
+
+
+// maybe give characters a PlayerControlled property of 0 or 1?
+

@@ -10,11 +10,13 @@ I should probably have an RNG function in the global context that can be called 
 
 //define global game variables
 
-let activePlayer, gamePlaying, player0Char, player1Char, combatLog, player0Class, player1Class
+let activePlayer, gamePlaying, player0Char, player1Char, combatLog, player0Class, player1Class, score1, score2
 activePlayer = 0;
 combatLog = document.querySelector('#combatlog');
 atkLog = document.querySelector('#atklog');
 console.log(combatLog);
+score1 = 0;
+score2 = 0;
 
 // Assigning player healthbars
 
@@ -43,6 +45,8 @@ function endGame (){
     if (player0Char.health <= 0 ) {
         document.getElementById('victory').style.display =  "block";
         document.getElementById('victory').innerText = player1Char.name + " is the winner!";
+        score2 ++;
+        document.getElementById('score1').innerText = "P2 Score: " + score2;
             if (player0Char.classID === 1) {
                 document.getElementById('fighterID').src = "assets/deadpusheen.png";
             } else if (player0Char.classID === 2) {
@@ -56,6 +60,8 @@ function endGame (){
     } else if (player1Char.health <= 0) {
         document.getElementById('victory').style.display =  "block";
         document.getElementById('victory').innerText = player0Char.name + " is the winner!";
+        score1 ++;
+        document.getElementById('score0').innerText = "P1 Score: " + score1;
         if (player1Char.classID === 1) {
             document.getElementById('fighterID').src = "assets/deadpusheen.png";
         } else if (player1Char.classID === 2) {
@@ -302,7 +308,7 @@ class cleric extends character {
         }
     clericSpecial(player, hpLog) {
             this.randomizerD20()
-            if ( this.rng >= 9 ) {
+            if ( this.rng >= 7 ) {
                 this.randomizerD12();
                 combatLog.textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + " hp";
                 player.health = player.health + (this.damage*this.rng + 1);

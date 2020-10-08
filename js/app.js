@@ -310,8 +310,12 @@ class cleric extends character {
             this.randomizerD20()
             if ( this.rng >= 7 ) {
                 this.randomizerD12();
-                combatLog.textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + " hp";
-                player.health = player.health + (this.damage*this.rng + 1);
+                combatLog.textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + " hp!";
+                if ((player.health + (this.damage*this.rng + 1)) >= player.maxHealth) {
+                    player.health = player.maxHealth;
+                } else {
+                    player.health = player.health + (this.damage*this.rng + 1);
+                }
                 hpLogger(player, hpLog);
             } else {
                 combatLog.textContent = this.name + " tried to cast a spell, but their prayer fell on deaf ears!";
@@ -374,7 +378,12 @@ class thief extends character {
                 this.randomizerD4();
                 combatLog.textContent = this.name + " steals his oponent's vitality through vampiric magics, dealing " + ((this.damage * this.rng) + 1 )+ " damage to their opponent and healing for the same amount!";
                 player.health = player.health - (this.damage * this.rng + 1 );
-                opPlayer.health = opPlayer.health + (this.damage * this.rng + 1 );
+                if ((opPlayer.health + (this.damage * this.rng + 1 )) >= opPlayer.maxHealth) {
+                    console.log((this.damage * this.rng + 1 ));
+                    opPlayer.health = opPlayer.maxHealth
+                } else {
+                    opPlayer.health = opPlayer.health + (this.damage * this.rng + 1 );
+                }
                 console.log(((player.damage * player.rng) + 1) + "damage");
                 console.log(opPlayer);
                 hpLogger(player, hpLog);
@@ -385,7 +394,11 @@ class thief extends character {
                 this.randomizerD4();
                 player.health = player.health - ((this.damage * this.rng * 2) + 1 );
                 combatLog.textContent = this.name + " drains the life out of his opponent with strong vampiric magics, dealing" + (this.damage * this.rng * 2 + 1 )+ " to their opponent and healing for the same amount!!!";
-                opPlayer.health = opPlayer.health + ((this.damage * this.rng * 2) + 1 );
+                if ((opPlayer.health + ((this.damage * this.rng * 2) + 1 )) >= opPlayer.maxHealth) {
+                    opPlayer.health = opPlayer.maxHealth;
+                } else {
+                    opPlayer.health = opPlayer.health + ((this.damage * this.rng * 2) + 1 );
+                }
                 console.log(opPlayer);
                 hpLogger(player, hpLog);
                 hpLogger(opPlayer, opHpLog);

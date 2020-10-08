@@ -42,7 +42,7 @@ function hpLogger(player, hpLog) {
 function endGame (){
     if (player0Char.health <= 0 ) {
         document.getElementById('victory').style.display =  "block";
-        document.getElementById('victory').innerText = player0Char.name + " is the winner!";
+        document.getElementById('victory').innerText = player1Char.name + " is the winner!";
             if (player0Char.classID === 1) {
                 document.getElementById('fighterID').src = "assets/deadpusheen.png";
             } else if (player0Char.classID === 2) {
@@ -55,7 +55,7 @@ function endGame (){
         
     } else if (player1Char.health <= 0) {
         document.getElementById('victory').style.display =  "block";
-        document.getElementById('victory').innerText = player1Char.name + " is the winner!";
+        document.getElementById('victory').innerText = player0Char.name + " is the winner!";
         if (player1Char.classID === 1) {
             document.getElementById('fighterID').src = "assets/deadpusheen.png";
         } else if (player1Char.classID === 2) {
@@ -622,13 +622,16 @@ function resetCharacters(){
     characterSelect.appendChild(mageID);
     characterSelect.appendChild(clericID);
     characterSelect.appendChild(thiefID);
-    player0Char.health = player0Char.maxHealth;
-    player1Char.health = player1Char.maxHealth;
+    //reset health bars
+    Fighter.health = Fighter.maxHealth;
+    Mage.health = Mage.maxHealth;
+    Cleric.health = Cleric.maxHealth;
+    Thief.health = Thief.maxHealth;
+        // reset img src
     document.getElementById('fighterID').src = Fighter.icon;
     document.getElementById('mageID').src = Mage.icon;
     document.getElementById('clericID').src = Cleric.icon;
     document.getElementById('thiefID').src = Thief.icon;
-    // reset img src
 
 }
 //switching players
@@ -716,10 +719,54 @@ function assignChar(Class){
 }
 */
 //Event listeners for character select
+//test func
+
+function actionEvtListnr(elID) {
+    element = document.getElementById(elID);
+    console.log("this is a " + element.dataset.classid);
+    if (element.dataset.classid == 1) {
+        moveChar(fighterID);
+        //assignSelected('fighterID');
+        setCharID('fighterID');
+        assignPlayer('fighterID');
+        assignCharClass(Fighter);
+        changeActionBox("(Fighter)");
+        assignChar(Fighter);
+    } else if (element.dataset.classid == 2) {
+        moveChar(mageID);
+        ///assignSelected('mageID');
+        setCharID('mageID');
+        assignPlayer('mageID');
+        assignCharClass(Mage);
+        changeActionBox("(Mage)");
+        assignChar(Mage);
+    } else if (element.dataset.classid == 3) {
+        moveChar(mageID);
+        ///assignSelected('mageID');
+        setCharID('mageID');
+        assignPlayer('mageID');
+        assignCharClass(Mage);
+        changeActionBox("(Mage)");
+        assignChar(Mage);
+    } else if (element.dataset.classid == 4) {
+        moveChar(clericID);
+        ///assignSelected('clericID');
+        setCharID('clericID');
+        assignPlayer('clericID');
+        assignCharClass(Cleric);
+        changeActionBox("(Cleric)");
+        assignChar(Cleric);   
+    }
+    hpTracker();
+    nextPlayer();
+    //removeEventListener('click', actionEvtListnr(elID));
+} 
+//actionEvtListnr('fighterID');
+//document.getElementById('fighterID').addEventListener('click', actionEvtListnr('fighterID'));
 
 document.getElementById('fighterID').addEventListener('click', () => {
     moveChar(fighterID);
-    //assignSelected('fighterID');
+    ///assignSelected('figtherID');
     setCharID('fighterID');
     assignPlayer('fighterID');
     assignCharClass(Fighter);

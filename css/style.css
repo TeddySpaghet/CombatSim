@@ -1,6 +1,7 @@
 * {
     background-color: rgb(215,241,242);
 }
+
 .characterimages {
     display: flex;
     margin: 50px 10px 10px 50px;
@@ -9,9 +10,24 @@
 .character {
     margin: 0px 10px 10px 0px;
 }
+.character:hover {
+    box-shadow: 0px 0px 30px 10px grey;
+}
 
 #battleScreen {
     display: none;
+}
+.battleCharacters {
+    display: flex;
+}
+.characterAbilities{
+    display: flex;
+}
+li {
+    margin: 5px 2px 0px 2px;
+}
+li:hover{
+    box-shadow: 0px 0px 10px 5px grey;
 }
 
 .startButton {
@@ -35,6 +51,7 @@
 }
 .vicmessage {
     display: none;
+    margin: 12% 5px 0px 5px;
 }
 .active {
     display: block;
@@ -42,4 +59,6 @@
 
 #log {
     border: 2px solid grey;
+
 }
+

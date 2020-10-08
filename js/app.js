@@ -17,6 +17,8 @@ atkLog = document.querySelector('#atklog');
 console.log(combatLog);
 score1 = 0;
 score2 = 0;
+document.getElementById('score1').innerText = "P2 Score: 0"
+document.getElementById('score0').innerText = "P1 Score: 0"
 
 // Assigning player healthbars
 
@@ -617,7 +619,8 @@ function actionSelector (active,classID, actionID) {
 // Button mapping -- screen changers
 
 document.getElementById('bStart').addEventListener('click', () => {
-    document.getElementById('battleScreen').style.display =  "block";
+    document.getElementById('battleScreen').style.display =  "flex";
+    document.getElementById('battleScreen').style.flexDirection = "column";
     document.getElementById('selectScreen').style.display = "none";
     nextPlayer()
 });

@@ -35,33 +35,32 @@
         </div>
     </section>
 
-    <section id="battleScreen">
+    <section class="battleScreen" id="battleScreen">
         <div class="battleCharacters">
-            <div id="character0">
-                <div class="healthbar0"> XXX/XXX HP </div>
-                <!--where i want p0 character to go-->
+            <div  class="battleCharacter0">
+                <div id="character0">
+                    <div class="healthbar0 healthbarred"> XXX/XXX HP </div>
+                    <!--where i want p0 character to go-->
+                </div>
+                <ul class="p0Abalities"> 
+                    <li id="p0Atk1">Basic Attack</li>
+                    <li id="p0Atk2">Strong Attack</li>
+                    <li id="p0Atk3">Special Attack</li>
+                </ul>
             </div>
             <div class="vicmessage" id="victory"> XXX </div>
+        <div class="battleCharacter1">
             <div id="character1">
-                <div class="healthbar1"> XXX/XXX HP </div>
+                <div class="healthbar1 healthbarred"> XXX/XXX HP </div>
                 <!-- where I want p1 character to go-->
             </div>
-        </div>
-
-        <div class="characterAbilities">
-            <ul class="p0Abalities"> 
-                <li id="p0Atk1">Basic Attack</li>
-                <li id="p0Atk2">Strong Attack</li>
-                <li id="p0Atk3">Special Attack</li>
-            </ul>
             <ul class="p1Abilities">
                 <li id="p1Atk1">Basic Attack</li>
                 <li id="p1Atk2">Strong Attack</li>
                 <li id="p1Atk3">Special Attack</li>
             </ul>
+            </div>
         </div>
-        <div class="vicmessage" id="victory"> XXX </div>
-
         <div class="combatLog">
             <p id="atklog">Attack Log</p>
             <p id="combatlog">Combat Log</p>

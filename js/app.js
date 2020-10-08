@@ -39,15 +39,32 @@ function hpLogger(player, hpLog) {
 }
 
 // function to end the game
-function endGame (classID){
+function endGame (){
     if (player0Char.health <= 0 ) {
         document.getElementById('victory').style.display =  "block";
         document.getElementById('victory').innerText = player0Char.name + " is the winner!";
-        document.getElementById(classID).src = "deadpusheen.png";
+            if (player0Char.classID === 1) {
+                document.getElementById('fighterID').src = "assets/deadpusheen.png";
+            } else if (player0Char.classID === 2) {
+                document.getElementById('mageID').src = "assets/deadpusheen.png";
+            } else if (player0Char.classID === 3) {
+                document.getElementById('clericID').src = "assets/deadpusheen.png";
+            } else if (player0Char.classID === 4) {
+                document.getElementById('thiefID').src = "assets/deadpusheen.png";
+            }
+        
     } else if (player1Char.health <= 0) {
         document.getElementById('victory').style.display =  "block";
         document.getElementById('victory').innerText = player1Char.name + " is the winner!";
-        document.getElementById(classID).src = "deadpusheen.png";
+        if (player1Char.classID === 1) {
+            document.getElementById('fighterID').src = "assets/deadpusheen.png";
+        } else if (player1Char.classID === 2) {
+            document.getElementById('mageID').src = "assets/deadpusheen.png";
+        } else if (player1Char.classID === 3) {
+            document.getElementById('clericID').src = "assets/deadpusheen.png";
+        } else if (player1Char.classID === 4) {
+            document.getElementById('thiefID').src = "assets/deadpusheen.png";
+        }
     }
 }
 //base character creation and attribute allocation
@@ -71,9 +88,6 @@ class character {
     }
     attackLog() {
         atkLog.textContent = this.name + " rolled a " + this.rng + " on their attack roll!";
-    }
-    hpTracker() {
-
     }
     
     constructor (name, health, maxHealth, damage, icon, rng) {    // need to figure out how to add the clasID to the extended classes
@@ -383,10 +397,10 @@ class thief extends character {
 }
 // Character creation
 
-const Cleric = new cleric ("Odin", 40 , 40, 1, "clericpusheen.png", 0);
-const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "warriorpusheen.png", 0);
-const Mage = new mage ("Crazy Melody", 35, 35, 1, "magepusheen.png", 0);
-const Thief = new thief ("Hendrick", 35, 35, 1, "thiefpusheen.png", 0);
+const Cleric = new cleric ("Odin", 40 , 40, 1, "assets/clericpusheen.png", 0);
+const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "assets/warriorpusheen.png", 0);
+const Mage = new mage ("Crazy Melody", 35, 35, 1, "assets/magepusheen.png", 0);
+const Thief = new thief ("Hendrick", 35, 35, 1, "assets/thiefpusheenupdated.png", 0);
 
 
 // BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION
@@ -420,12 +434,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 1) {
             if (actionID === 1) {
                 Fighter.fighterLight(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Fighter.fighterHeavy(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Fighter.fighterSpecial(player1Char, hpLog1)
+                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -434,12 +451,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 2) {
             if (actionID === 1) {
                 Mage.mageLight(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Mage.mageHeavy(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Mage.mageSpecial(player1Char, hpLog1)
+                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -448,12 +468,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 3) {
             if (actionID === 1) {
                 Cleric.clericLight(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Cleric.clericHeavy(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Cleric.clericSpecial(player0Char, hpLog0)
+                endGame()
                 return    
             } else {
                 console.log('error, not a valid action id')
@@ -461,12 +484,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 4) {
             if (actionID === 1) {
                 Thief.thiefLight(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Thief.thiefHeavy(player1Char, hpLog1)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Thief.thiefSpecial(player1Char, hpLog1, player0Char, hpLog0)
+                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -495,12 +521,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 1) {
             if (actionID === 1) {
                 Fighter.fighterLight(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Fighter.fighterHeavy(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Fighter.fighterSpecial(player0Char, hpLog0)
+                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -509,12 +538,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 2) {
             if (actionID === 1) {
                 Mage.mageLight(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Mage.mageHeavy(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Mage.mageSpecial(player0Char, hpLog0)
+                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -523,12 +555,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 3) {
             if (actionID === 1) {
                 Cleric.clericLight(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Cleric.clericHeavy(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 3) {
-                Cleric.clericSpecial(player1Char, hpLog1) 
+                Cleric.clericSpecial(player1Char, hpLog1)
+                endGame() 
                 return   
             } else {
                 console.log('error, not a valid action id')
@@ -537,12 +572,15 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 4) {
             if (actionID === 1) {
                 Thief.thiefLight(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 2) {
                 Thief.thiefHeavy(player0Char, hpLog0)
+                endGame()
                 return
             } else if (actionID === 3) {
                 Thief.thiefSpecial(player0Char, hpLog0, player1Char, hpLog1)
+                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -586,6 +624,11 @@ function resetCharacters(){
     characterSelect.appendChild(thiefID);
     player0Char.health = player0Char.maxHealth;
     player1Char.health = player1Char.maxHealth;
+    document.getElementById('fighterID').src = Fighter.icon;
+    document.getElementById('mageID').src = Mage.icon;
+    document.getElementById('clericID').src = Cleric.icon;
+    document.getElementById('thiefID').src = Thief.icon;
+    // reset img src
 
 }
 //switching players
@@ -743,28 +786,40 @@ function changeActionBox (Class) {
 
     document.getElementById('p0Atk1').addEventListener('click' , () => {
         //data
-        actionSelector(0,player0Class.dataset.classid,1)
+        if ( player0Char.health > 0 && player1Char.health > 0) {
+            actionSelector(0,player0Class.dataset.classid,1)
+        }
     });
 
     document.getElementById('p0Atk2').addEventListener('click' , () => {
-        actionSelector(0,player0Class.dataset.classid,2)
+        if ( player0Char.health > 0 && player1Char.health > 0) {
+            actionSelector(0,player0Class.dataset.classid,2)
+        }
     });
 
     document.getElementById('p0Atk3').addEventListener('click' , () => {
-        actionSelector(0,player0Class.dataset.classid,3)
+        if ( player0Char.health > 0 && player1Char.health > 0) {
+            actionSelector(0,player0Class.dataset.classid,3)
+        }
     });
 
 //player 1
     document.getElementById('p1Atk1').addEventListener('click' , () => {
-        actionSelector(1,player1Class.dataset.classid,1)
+        if ( player0Char.health > 0 && player1Char.health > 0) {
+            actionSelector(1,player1Class.dataset.classid,1)
+        }
     });
 
     document.getElementById('p1Atk2').addEventListener('click' , () => {
-        actionSelector(1,player1Class.dataset.classid,2)
+        if ( player0Char.health > 0 && player1Char.health > 0) {
+            actionSelector(1,player1Class.dataset.classid,2)
+        }
     });
 
     document.getElementById('p1Atk3').addEventListener('click' , () => {
-        actionSelector(1,player1Class.dataset.classid,3)
+        if ( player0Char.health > 0 && player1Char.health > 0) {
+            actionSelector(1,player1Class.dataset.classid,3)
+        }
     });
 
 

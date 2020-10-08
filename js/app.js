@@ -350,7 +350,7 @@ class thief extends character {
                     player.health = player.health - (this.damage * this.rng + 3 );
                     hpLogger(player, hpLog);
                 } else if (this.rng < 12) {
-                    combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
+                    combatLog.textContent = this.name + " attempts a daring maneuver, but steps on their tail and trips!";
                 } else if (this.rng = 20) { 
                     this.randomizerD12();
                     console.log("Thief rolled a " + this.rng)
@@ -614,7 +614,7 @@ document.getElementById('bEnd').addEventListener('click', () => {
 //end button moves back the selected characters to the character select screen
 
 function resetCharacters(){
-    //removeSelected();
+    removeSelected();
     document.getElementById('fighterID').dataset.playerid = "";
     document.getElementById('mageID').dataset.playerid = "";
     document.getElementById('clericID').dataset.playerid = "";
@@ -707,27 +707,35 @@ function assignChar(Class){
 
 
 // Duplicate characters into the selectedCharacter div
-/*function assignSelected (charID) {
+    //change their ids so they don't conflict with the battle characters
+function assignSelected (charID) {
     if (activePlayer === 0) {    
         let select0 = document.getElementById(charID);
         let clone0 = select0.cloneNode();
+        clone0.id = "clone0";
         document.getElementById("selectedCharacter0").appendChild(clone0);
     }
     else if (activePlayer === 1) {
         let select1 = document.getElementById(charID);
         let clone1 = select1.cloneNode();
+        clone1.id = "clone1";
         document.getElementById("selectedCharacter1").appendChild(clone1);
     }  
 }
-*/
+
 // Remove the character of the selectedCharacter div
-/*function removeSelected () {
+function removeSelected () {
     removeSelect0 = document.getElementById("selectedCharacter0");
-    removeSelect0.removeChild(removeSelect0);
+    console.log(document.getElementById("selectedCharacter0").childNodes);
+    while (removeSelect0.hasChildNodes()) {
+    removeSelect0.removeChild(removeSelect0.firstChild);
+    } // thank google for this @ https://www.w3schools.com/jsref/met_node_removechild.asp
     removeSelect1 = document.getElementById("selectedCharacter1");
-    removeSelect1.removeChild(removeSelect1);
+    while (removeSelect1.hasChildNodes()) {
+        removeSelect1.removeChild(removeSelect1.firstChild);
+        }
 }
-*/
+
 //Event listeners for character select
 //test func
 // change elID to event.target
@@ -737,7 +745,7 @@ function actionEvtListnr(event) {
     console.log("this is a " + element.dataset.classid);
     if (element.dataset.classid == 1) {
         moveChar(fighterID);
-        //assignSelected('fighterID');
+        assignSelected('fighterID');
         setCharID('fighterID');
         assignPlayer('fighterID');
         assignCharClass(Fighter);
@@ -745,7 +753,7 @@ function actionEvtListnr(event) {
         assignChar(Fighter);
     } else if (element.dataset.classid == 2) {
         moveChar(mageID);
-        ///assignSelected('mageID');
+        assignSelected('mageID');
         setCharID('mageID');
         assignPlayer('mageID');
         assignCharClass(Mage);
@@ -753,7 +761,7 @@ function actionEvtListnr(event) {
         assignChar(Mage);
     } else if (element.dataset.classid == 3) {
         moveChar(clericID);
-        ///assignSelected('clericID');
+        assignSelected('clericID');
         setCharID('clericID');
         assignPlayer('clericID');
         assignCharClass(Cleric);
@@ -761,7 +769,7 @@ function actionEvtListnr(event) {
         assignChar(Cleric);
     } else if (element.dataset.classid == 4) {
         moveChar(thiefID);
-        ///assignSelected('thiefID');
+        assignSelected('thiefID');
         setCharID('thiefID');
         assignPlayer('thiefID');
         assignCharClass(Thief);

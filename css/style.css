@@ -19,9 +19,14 @@
 }
 .battleCharacters {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .characterAbilities{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 li {
     margin: 5px 2px 0px 2px;
@@ -36,6 +41,12 @@ li:hover{
     align-items: center;
     height: 100px;
 
+}
+.endButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 }
 .character{
     border-radius: 25%;

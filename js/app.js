@@ -226,17 +226,17 @@ class mage extends character {
     mageSpecial(player, hpLog) {
             this.randomizerD20()
             console.log(this.rng)
-            if ( this.rng >= 10 && this.rng != 20) {
+            if ( this.rng >= 9 && this.rng <18) {
                 this.randomizerD4();
                 combatLog.textContent = this.name + " hits with two magic missles dealing " + ((this.damage * this.rng + 1) * 2 )+ " damage to their opponent!";
                 player.health = player.health - ((this.damage * this.rng + 1) * 2 );
                 hpLogger(player, hpLog);
-            } else if (this.rng < 10) {
+            } else if (this.rng < 9) {
                 this.randomizerD4();
                 combatLog.textContent = this.name + " hits with one magic missle dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
                 player.health = player.health - ((this.damage * this.rng + 1) * 1 );
                 hpLogger(player, hpLog);
-            } else if (this.rng = 20) { 
+            } else if (this.rng >= 18) { 
                 this.randomizerD4();
                 combatLog.textContent = this.name + " hits with all three magic missle dealing " + ((this.damage * this.rng + 1) * 3 )+ " damage to their opponent!!!";
                 player.health = player.health - ((this.damage * this.rng + 1) * 3 );
@@ -612,6 +612,7 @@ document.getElementById('bEnd').addEventListener('click', () => {
 });
 
 //end button moves back the selected characters to the character select screen
+
 function resetCharacters(){
     //removeSelected();
     document.getElementById('fighterID').dataset.playerid = "";
@@ -627,12 +628,21 @@ function resetCharacters(){
     Mage.health = Mage.maxHealth;
     Cleric.health = Cleric.maxHealth;
     Thief.health = Thief.maxHealth;
-        // reset img src
+    // reset logs
+    combatLog.textContent = "Combat Log";
+    atkLog.textContent = "Attack Log";
+    // reset img src
     document.getElementById('fighterID').src = Fighter.icon;
     document.getElementById('mageID').src = Mage.icon;
     document.getElementById('clericID').src = Cleric.icon;
     document.getElementById('thiefID').src = Thief.icon;
-
+    //reset event listeners 
+    document.getElementById('fighterID').addEventListener('click', actionEvtListnr);
+    document.getElementById('mageID').addEventListener('click', actionEvtListnr);
+    document.getElementById('clericID').addEventListener('click', actionEvtListnr);
+    document.getElementById('thiefID').addEventListener('click', actionEvtListnr);
+    //hide victory message
+    document.getElementById('victory').style.display =  "none";
 }
 //switching players
 
@@ -720,9 +730,10 @@ function assignChar(Class){
 */
 //Event listeners for character select
 //test func
-
-function actionEvtListnr(elID) {
-    element = document.getElementById(elID);
+// change elID to event.target
+function actionEvtListnr(event) {
+    // event target gives element clicked
+    element = event.target
     console.log("this is a " + element.dataset.classid);
     if (element.dataset.classid == 1) {
         moveChar(fighterID);
@@ -741,76 +752,32 @@ function actionEvtListnr(elID) {
         changeActionBox("(Mage)");
         assignChar(Mage);
     } else if (element.dataset.classid == 3) {
-        moveChar(mageID);
-        ///assignSelected('mageID');
-        setCharID('mageID');
-        assignPlayer('mageID');
-        assignCharClass(Mage);
-        changeActionBox("(Mage)");
-        assignChar(Mage);
-    } else if (element.dataset.classid == 4) {
         moveChar(clericID);
         ///assignSelected('clericID');
         setCharID('clericID');
         assignPlayer('clericID');
         assignCharClass(Cleric);
-        changeActionBox("(Cleric)");
-        assignChar(Cleric);   
+        changeActionBox("(cleric)");
+        assignChar(Cleric);
+    } else if (element.dataset.classid == 4) {
+        moveChar(thiefID);
+        ///assignSelected('thiefID');
+        setCharID('thiefID');
+        assignPlayer('thiefID');
+        assignCharClass(Thief);
+        changeActionBox("(thief)");
+        assignChar(Thief);   
     }
     hpTracker();
     nextPlayer();
-    //removeEventListener('click', actionEvtListnr(elID));
+    element.removeEventListener('click', actionEvtListnr);
 } 
 //actionEvtListnr('fighterID');
-//document.getElementById('fighterID').addEventListener('click', actionEvtListnr('fighterID'));
+document.getElementById('fighterID').addEventListener('click', actionEvtListnr);
+document.getElementById('mageID').addEventListener('click', actionEvtListnr);
+document.getElementById('clericID').addEventListener('click', actionEvtListnr);
+document.getElementById('thiefID').addEventListener('click', actionEvtListnr);
 
-document.getElementById('fighterID').addEventListener('click', () => {
-    moveChar(fighterID);
-    ///assignSelected('figtherID');
-    setCharID('fighterID');
-    assignPlayer('fighterID');
-    assignCharClass(Fighter);
-    changeActionBox("(Fighter)");
-    assignChar(Fighter);
-    hpTracker();
-    nextPlayer();
-})
-
-document.getElementById('mageID').addEventListener('click', () => {
-    moveChar(mageID);
-    ///assignSelected('mageID');
-    setCharID('mageID');
-    assignPlayer('mageID');
-    assignCharClass(Mage);
-    changeActionBox("(Mage)");
-    assignChar(Mage);
-    hpTracker();
-    nextPlayer();
-})
-
-document.getElementById('clericID').addEventListener('click', () => {
-    moveChar(clericID);
-    ///assignSelected('clericID');
-    setCharID('clericID');
-    assignPlayer('clericID');
-    assignCharClass(Cleric);
-    changeActionBox("(Cleric)");
-    assignChar(Cleric);
-    hpTracker();
-    nextPlayer();
-})
-
-document.getElementById('thiefID').addEventListener('click', () => {
-    moveChar(thiefID);
-    ///assignSelected('thiefID');
-    setCharID('thiefID');
-    assignPlayer('thiefID');
-    assignCharClass(Thief);
-    changeActionBox("(Thief)");
-    assignChar(Thief);
-    hpTracker();
-    nextPlayer();
-})
 
 //Dynamically change the attack box's text to reflect character class
 function changeActionBox (Class) {
@@ -876,9 +843,9 @@ things to figure out:
 -potentially create new img objects via JS rather than hardcode them in HTML
 -fleshing out actions to have real impact
 -figure out if changing bits of functions is a thing
-- stretch goal: dynamically change the action names according to character class.
-*/
 
+*/
+//stretch goal set up action descriptor hover boxes
 //hp implementation: give characters a max and current hp property
 //character select button will reset the current hp to max hp 
 // make the html healthbars dynamic by linking the character0.classID to it

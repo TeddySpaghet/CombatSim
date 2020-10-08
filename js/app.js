@@ -28,11 +28,6 @@ function hpTracker () {
     }
 }
 
- //       hpLog0 = document.querySelector('.healthbar0');
- //       hpLog0.textContent = player0Char.health + " / " + player0Char.maxHealth + " HP";
-
- //       hpLog1 = document.querySelector('.healthbar1');
- //       hpLog1.textContent = player1Char.health + " / " + player1Char.maxHealth + " HP";
 function hpLogger(player, hpLog) {
     if (activePlayer=== 0) {
         hpLog0 = document.querySelector('.healthbar0');
@@ -43,6 +38,18 @@ function hpLogger(player, hpLog) {
     }
 }
 
+// function to end the game
+function endGame (classID){
+    if (player0Char.health <= 0 ) {
+        document.getElementById('victory').style.display =  "block";
+        document.getElementById('victory').innerText = player0Char.name + " is the winner!";
+        document.getElementById(classID).src = "deadpusheen.png";
+    } else if (player1Char.health <= 0) {
+        document.getElementById('victory').style.display =  "block";
+        document.getElementById('victory').innerText = player1Char.name + " is the winner!";
+        document.getElementById(classID).src = "deadpusheen.png";
+    }
+}
 //base character creation and attribute allocation
 
 class character {
@@ -376,10 +383,10 @@ class thief extends character {
 }
 // Character creation
 
-const Cleric = new cleric ("Odin", 40 , 40, 1, "placeholder", 0);
-const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "placeholder", 0);
-const Mage = new mage ("Crazy Melody", 35, 35, 1, "placeholder", 0);
-const Thief = new thief ("Hendrick", 35, 35, 1, "placeholder", 0);
+const Cleric = new cleric ("Odin", 40 , 40, 1, "clericpusheen.png", 0);
+const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "warriorpusheen.png", 0);
+const Mage = new mage ("Crazy Melody", 35, 35, 1, "magepusheen.png", 0);
+const Thief = new thief ("Hendrick", 35, 35, 1, "thiefpusheen.png", 0);
 
 
 // BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION
@@ -577,6 +584,8 @@ function resetCharacters(){
     characterSelect.appendChild(mageID);
     characterSelect.appendChild(clericID);
     characterSelect.appendChild(thiefID);
+    player0Char.health = player0Char.maxHealth;
+    player1Char.health = player1Char.maxHealth;
 
 }
 //switching players

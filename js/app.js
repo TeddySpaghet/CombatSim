@@ -656,11 +656,14 @@ function nextPlayer() {
 }
 // Character selection mapping
 function moveChar(charID){
-    if (activePlayer === 0) {    // want to make it so that the conditional includes an and && that checks if charID is already a child of character 0 or 1
+    console.log(document.getElementById('character0').childNodes);
+    if (activePlayer === 0 ) {    // want to make it so that the conditional includes an and && that checks if charID is already a child of character 0 or 1
         character0.appendChild(charID);
+        console.log(document.getElementById('character0').childNodes);
     }
     else if (activePlayer === 1) {
-        character1.appendChild(charID)
+        character1.appendChild(charID);
+        console.log(document.getElementById('character1').childNodes);
     }
 }
 // Setting character IDs
@@ -743,48 +746,56 @@ function actionEvtListnr(event) {
     // event target gives element clicked
     element = event.target
     console.log("this is a " + element.dataset.classid);
-    if (element.dataset.classid == 1) {
-        moveChar(fighterID);
-        assignSelected('fighterID');
-        setCharID('fighterID');
-        assignPlayer('fighterID');
-        assignCharClass(Fighter);
-        changeActionBox("(Fighter)");
-        assignChar(Fighter);
-    } else if (element.dataset.classid == 2) {
-        moveChar(mageID);
-        assignSelected('mageID');
-        setCharID('mageID');
-        assignPlayer('mageID');
-        assignCharClass(Mage);
-        changeActionBox("(Mage)");
-        assignChar(Mage);
-    } else if (element.dataset.classid == 3) {
-        moveChar(clericID);
-        assignSelected('clericID');
-        setCharID('clericID');
-        assignPlayer('clericID');
-        assignCharClass(Cleric);
-        changeActionBox("(cleric)");
-        assignChar(Cleric);
-    } else if (element.dataset.classid == 4) {
-        moveChar(thiefID);
-        assignSelected('thiefID');
-        setCharID('thiefID');
-        assignPlayer('thiefID');
-        assignCharClass(Thief);
-        changeActionBox("(thief)");
-        assignChar(Thief);   
+    console.log(document.getElementById('character0').childNodes);
+    console.log(document.getElementById('character1').childNodes);
+    if (document.getElementById('character0').childNodes.length == 5 || document.getElementById('character1').childNodes.length == 5) {
+        if (element.dataset.classid == 1) {
+            moveChar(fighterID);
+            assignSelected('fighterID');
+            setCharID('fighterID');
+            assignPlayer('fighterID');
+            assignCharClass(Fighter);
+            changeActionBox("(Fighter)");
+            assignChar(Fighter);
+        } else if (element.dataset.classid == 2) {
+            moveChar(mageID);
+            assignSelected('mageID');
+            setCharID('mageID');
+            assignPlayer('mageID');
+            assignCharClass(Mage);
+            changeActionBox("(Mage)");
+            assignChar(Mage);
+        } else if (element.dataset.classid == 3) {
+            moveChar(clericID);
+            assignSelected('clericID');
+            setCharID('clericID');
+            assignPlayer('clericID');
+            assignCharClass(Cleric);
+            changeActionBox("(cleric)");
+            assignChar(Cleric);
+        } else if (element.dataset.classid == 4) {
+            moveChar(thiefID);
+            assignSelected('thiefID');
+            setCharID('thiefID');
+            assignPlayer('thiefID');
+            assignCharClass(Thief);
+            changeActionBox("(thief)");
+            assignChar(Thief);   
+        }
+        hpTracker();
+        nextPlayer();
+        element.removeEventListener('click', actionEvtListnr);
+    } else {
+        return alert('You have already selected a character!');
     }
-    hpTracker();
-    nextPlayer();
-    element.removeEventListener('click', actionEvtListnr);
 } 
 //actionEvtListnr('fighterID');
+
 document.getElementById('fighterID').addEventListener('click', actionEvtListnr);
 document.getElementById('mageID').addEventListener('click', actionEvtListnr);
 document.getElementById('clericID').addEventListener('click', actionEvtListnr);
 document.getElementById('thiefID').addEventListener('click', actionEvtListnr);
+
 
 
 //Dynamically change the attack box's text to reflect character class

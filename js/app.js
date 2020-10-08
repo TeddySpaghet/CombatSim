@@ -10,14 +10,28 @@ I should probably have an RNG function in the global context that can be called 
 
 //define global game variables
 
-let activePlayer, gamePlaying, player0Char, player1Char, combatLog
+let activePlayer, gamePlaying, player0Char, player1Char, combatLog, player0Class, player1Class
 activePlayer = 0;
 combatLog = document.querySelector('#combatlog');
 atkLog = document.querySelector('#atklog');
 console.log(combatLog);
-hpLog0 = document.querySelector('.healthbar0');
-hpLog1 = document.querySelector('.healthbar1');
 
+// Assigning player healthbars
+
+ //       hpLog0 = document.querySelector('.healthbar0');
+ //       hpLog0.textContent = player0Char.health + " / " + player0Char.maxHealth + " HP";
+
+ //       hpLog1 = document.querySelector('.healthbar1');
+ //       hpLog1.textContent = player1Char.health + " / " + player1Char.maxHealth + " HP";
+function hpLogger(player, hpLog) {
+    if (activePlayer=== 0) {
+        hpLog0 = document.querySelector('.healthbar0');
+        hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
+    } else if (activePlayer === 1) {
+        hpLog1 = document.querySelector('.healthbar1');
+    hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
+    }
+}
 
 //base character creation and attribute allocation
 
@@ -45,9 +59,10 @@ class character {
 
     }
     
-    constructor (name,health,damage, icon,rng) {    // need to figure out how to add the clasID to the extended classes
+    constructor (name, health, maxHealth, damage, icon, rng) {    // need to figure out how to add the clasID to the extended classes
         this.name = name;  
         this.health = health;
+        this.maxHealth = maxHealth;
         this.damage = damage;
         this.icon = icon;
         this.rng = rng;
@@ -58,58 +73,67 @@ class character {
 // special class addition, adding a special ability flavored to specific class
 
 class fighter extends character {
-    fighterLight() {
-        this.randomizerD20()
-            if ( this.rng >= 6 && this.rng != 20) {
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = "\n " + this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
-            } else if (this.rng < 6) {
-                combatLog.textContent = this.name + "'s blade fails to find their target!";
-            } else if (this.rng = 20) { 
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
-            } else {
-                console.log('notworking')
-            }
-        nextPlayer()
+    fighterLight(player, hpLog) {
+                this.randomizerD20()
+                if ( this.rng >= 6 && this.rng != 20) {
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+                    player.health = player.health - (this.damage * this.rng + 1 );
+                    hpLogger(player, hpLog);
+                } else if (this.rng < 6) {
+                    combatLog.textContent = this.name + "'s blade fails to find their target!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 1 );
+                    hpLogger(hpLog, opPlayer);
+                } else {
+                    console.log('notworking')
+                }
+            nextPlayer()
     }
-    fighterHeavy () {
-        this.randomizerD20()
-        console.log("Fighter rolled a " + this.rng)
-            if ( this.rng >= 12 && this.rng != 20) {
-                this.randomizerD12();
-                console.log("Fighter rolled a " + this.rng)
-                combatLog.textContent = this.name + " manages to rend their foe with an overhead strike dealing " + (this.damage * this.rng + 3 )+ " damage!";
-            } else if (this.rng < 12) {
-                combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
-            } else if (this.rng = 20) { 
-                this.randomizerD12();
-                console.log("Fighter rolled a " + this.rng)
-                combatLog.textContent = this.name + " carves their sword deep into their foe with an overhead strike, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage!!!";
+    fighterHeavy (player, hpLog, opPlayer) {
+            this.randomizerD20()
+            console.log("Fighter rolled a " + this.rng)
+                if ( this.rng >= 12 && this.rng != 20) {
+                    this.randomizerD12();
+                    console.log("Fighter rolled a " + this.rng)
+                    combatLog.textContent = this.name + " manages to rend their foe with an overhead strike dealing " + (this.damage * this.rng + 3 )+ " damage!";
+                    player.health = player.health - (this.damage * this.rng + 3 );
+                } else if (this.rng < 12) {
+                    combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD12();
+                    console.log("Fighter rolled a " + this.rng)
+                    combatLog.textContent = this.name + " carves their sword deep into their foe with an overhead strike, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 3);
+                } else {
+                    console.log('notworking2')
+                }
+            nextPlayer()
+
+        }
+    fighterSpecial(player, hpLog, opPlayer) { 
+            this.randomizerD20()
+            if ( this.rng >= 10 && this.rng < 18) {
+                this.randomizerD10();
+                console.log("Fighter rolled a " + this.rng);
+                combatLog.textContent = this.name + " hits with a Swing and Punch combo, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+                player.health = player.health - (this.damage * this.rng + 3 );
+            } else if (this.rng < 10) {
+                combatLog.textContent = this.name + " is unable to connect their Swing and Punch combo!";
+            } else if (this.rng >= 18) { 
+                this.randomizerD10();
+                console.log(this.rng);
+                combatLog.textContent = this.name + " critically hits with their Swing and Punch combo, dealing " + (this.damage * this.rng * 2 + 3 ) + " damage and sending their opponent flying!!!";
+                player.health = player.health - (this.damage * this.rng * 2 + 3);
             } else {
-                console.log('notworking2')
+                console.log('notworking3')
             }
-        nextPlayer()
-        }
-    fighterSpecial() { 
-        this.randomizerD20()
-        if ( this.rng >= 10 && this.rng < 18) {
-            this.randomizerD10();
-            console.log("Fighter rolled a " + this.rng);
-            combatLog.textContent = this.name + " hits with a Swing and Punch combo, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
-            console.log(combatLog.textContent);
-        } else if (this.rng < 10) {
-            combatLog.textContent = this.name + " is unable to connect their Swing and Punch combo!";
-        } else if (this.rng >= 18) { 
-            this.randomizerD10();
-            console.log(this.rng);
-            combatLog.textContent = this.name + " critically hits with their Swing and Punch combo, dealing " + (this.damage * this.rng * 2 + 3 ) + " damage and sending their opponent flying!!!";
-        } else {
-            console.log('notworking3')
-        }
-        nextPlayer()
+            nextPlayer()
+
     }
     constructor (name,health,damage, icon,rng) {
         super(name,health,damage,icon,rng);
@@ -119,57 +143,67 @@ class fighter extends character {
 }
 
 class mage extends character {
-    mageLight() {
-        this.randomizerD20()
-            if ( this.rng >= 6 && this.rng != 20) {
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " sends a firebolt flying at their foe, dealing " + (this.damage * this.rng + 1 )+ " damage!";
-            } else if (this.rng < 6) {
-                combatLog.textContent = this.name + " is unable to concentrate on their spell!";
-            } else if (this.rng = 20) { 
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " sends their foe reeling with pain, their firebolt is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
-            } else {
-                console.log('notworking')
-            }
-        nextPlayer()
+    mageLight(player, hpLog, opPlayer) {
+            this.randomizerD20()
+                if ( this.rng >= 6 && this.rng != 20) {
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " sends a firebolt flying at their foe, dealing " + (this.damage * this.rng + 1 )+ " damage!";
+                    player.health = player.health - (this.damage * this.rng + 1 );
+                } else if (this.rng < 6) {
+                    combatLog.textContent = this.name + " is unable to concentrate on their spell!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " sends their foe reeling with pain, their firebolt is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 1 );
+                } else {
+                    console.log('notworking')
+                }
+            nextPlayer()
+
     }
-    mageHeavy () {
+    mageHeavy (player, hpLog, opPlayer) {
         this.randomizerD20()
-        console.log("Mage rolled a " + this.rng)
-            if ( this.rng >= 12 && this.rng != 20) {
-                this.randomizerD12();
-                console.log("Mage rolled a " + this.rng)
-                combatLog.textContent = this.name + " conjures a powerful fireblast, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
-            } else if (this.rng < 12) {
-                combatLog.textContent = this.name + "'s casting of their spell fizzles out, leaving them open to attack!";
+            console.log("Mage rolled a " + this.rng)
+                if ( this.rng >= 12 && this.rng != 20) {
+                    this.randomizerD12();
+                    console.log("Mage rolled a " + this.rng)
+                    combatLog.textContent = this.name + " conjures a powerful fireblast, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+                    player.health = player.health - (this.damage * this.rng + 3 );
+                } else if (this.rng < 12) {
+                    combatLog.textContent = this.name + "'s casting of their spell fizzles out, leaving them open to attack!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD12();
+                    console.log("Mage rolled a " + this.rng)
+                    combatLog.textContent = this.name + " summons a huge burst of flames, and critically hits with fireblast for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 3);
+                } else {
+                    console.log('notworking2')
+                }
+            nextPlayer();
+
+        }
+    mageSpecial(player, hpLog, opPlayer) {
+            this.randomizerD20()
+            console.log(this.rng)
+            if ( this.rng >= 10 && this.rng != 20) {
+                this.randomizerD4();
+                combatLog.textContent = this.name + " hits with two magic missles dealing " + ((this.damage * this.rng + 1) * 2 )+ " damage to their opponent!";
+                player.health = player.health - ((this.damage * this.rng + 1) * 2 );
+            } else if (this.rng < 10) {
+                this.randomizerD4();
+                combatLog.textContent = this.name + " hits with one magic missle dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+                player.health = player.health - ((this.damage * this.rng + 1) * 2 );
             } else if (this.rng = 20) { 
-                this.randomizerD12();
-                console.log("Mage rolled a " + this.rng)
-                combatLog.textContent = this.name + " summons a huge burst of flames, and critically hits with fireblast for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
+                this.randomizerD4();
+                combatLog.textContent = this.name + " hits with all three magic missle dealing " + ((this.damage * this.rng + 1) * 3 )+ " damage to their opponent!!!";
+                player.health = player.health - ((this.damage * this.rng + 1) * 2 );
             } else {
-                console.log('notworking2')
+                console.log('notworking3')
             }
-        nextPlayer()
-        }
-    mageSpecial() {
-        this.randomizerD20()
-        console.log(this.rng)
-        if ( this.rng >= 10 && this.rng != 20) {
-            this.randomizerD4();
-            combatLog.textContent = this.name + " hits with two magic missles dealing " + ((this.damage * this.rng + 1) * 2 )+ " damage to their opponent!";
-        } else if (this.rng < 10) {
-            this.randomizerD4();
-            combatLog.textContent = this.name + " hits with one magic missle dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
-        } else if (this.rng = 20) { 
-            this.randomizerD4();
-            combatLog.textContent = this.name + " hits with all three magic missle dealing " + ((this.damage * this.rng + 1) * 3 )+ " damage to their opponent!!!";
-        } else {
-            console.log('notworking3')
-        }
-        nextPlayer();
+            nextPlayer();
+
     }
 
     constructor (name,health,damage, icon,rng) {
@@ -179,105 +213,120 @@ class mage extends character {
 }
 
 class cleric extends character {
-    clericLight() {
-        this.randomizerD20()
-            if ( this.rng >= 6 && this.rng != 20) {
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " slams their opponent with their mace, dealing " + (this.damage * this.rng + 1 )+ " damage!";
-            } else if (this.rng < 6) {
-                combatLog.textContent = this.name + "'s mace fails to find their target!";
-            } else if (this.rng = 20) { 
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " bashes their opponent in the head, critically hitting and dealing " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
-            } else {
-                console.log('notworking')
-            }
-        nextPlayer()
+    clericLight(player, hpLog, opPlayer) {
+            this.randomizerD20()
+                if ( this.rng >= 6 && this.rng != 20) {
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " slams their opponent with their mace, dealing " + (this.damage * this.rng + 1 )+ " damage!";
+                    player.health = player.health - (this.damage * this.rng + 1 );
+                } else if (this.rng < 6) {
+                    combatLog.textContent = this.name + "'s mace fails to find their target!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " bashes their opponent in the head, critically hitting and dealing " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 1 );
+                } else {
+                    console.log('notworking')
+                }
+            nextPlayer();
+
     }
-    clericHeavy () {
-        this.randomizerD20()
-        console.log("Cleric rolled a " + this.rng)
-            if ( this.rng >= 12 && this.rng != 20) {
+    clericHeavy (player, hpLog, opPlayer) {
+            this.randomizerD20()
+            console.log("Cleric rolled a " + this.rng)
+                if ( this.rng >= 12 && this.rng != 20) {
+                    this.randomizerD12();
+                    console.log("Cleric rolled a " + this.rng)
+                    combatLog.textContent = this.name + "'s mace begins to glow with divine light before stricking their opponent, dealing " + (this.damage * this.rng + 3 )+ " damage!";
+                    player.health = player.health - (this.damage * this.rng + 3 );
+                } else if (this.rng < 12) {
+                    combatLog.textContent = this.name + " is unable to muster any divine power!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD12();
+                    console.log("Cleric rolled a " + this.rng)
+                    combatLog.textContent = this.name + " bursts with holy power, bashing their opponent and critically hitting dealing " + (this.damage * this.rng * 2 + 3) + " damage!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 3);
+                } else {
+                    console.log('notworking2')
+                }
+            nextPlayer();
+
+        }
+    clericSpecial(player, hpLog, opPlayer) {
+            this.randomizerD20()
+            if ( this.rng >= 7 ) {
                 this.randomizerD12();
-                console.log("Cleric rolled a " + this.rng)
-                combatLog.textContent = this.name + "'s mace begins to glow with divine light before stricking their opponent, dealing " + (this.damage * this.rng + 3 )+ " damage!";
-            } else if (this.rng < 12) {
-                combatLog.textContent = this.name + " is unable to muster any divine power!";
-            } else if (this.rng = 20) { 
-                this.randomizerD12();
-                console.log("Cleric rolled a " + this.rng)
-                combatLog.textContent = this.name + " bursts with holy power, bashing their opponent and critically hitting dealing " + (this.damage * this.rng * 2 + 3) + " damage!!!";
-            } else {
-                console.log('notworking2')
+                combatLog.textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + "hp";
+                player.health = player.health + (this.damage*this.rng + 1);
             }
-        nextPlayer()
+                    nextPlayer();
         }
-    clericSpecial() {
-        this.randomizerD20()
-        if ( this.rng >= 7 ) {
-            this.randomizerD12();
-            combatLog.textContent = this.name + " prays to the Gods and heals themselves for " + (this.damage*this.rng + 1) + "hp";
-        }
-        
-        nextPlayer()
-    }
     constructor (name,health,damage, icon,rng) {
         super(name,health,damage,icon,rng);
         this.classID = 3;
     }
 }
 class thief extends character {
-    thiefLight() {
-        this.randomizerD20()
-            if ( this.rng >= 6 && this.rng != 20) {
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " hits with a sneaky stab, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
-            } else if (this.rng < 6) {
-                combatLog.textContent = this.name + "'s dagger fails to find their target!";
-            } else if (this.rng = 20) { 
-                this.randomizerD6();
-                console.log(this.rng)
-                combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage to their opponent!!!";
-            } else {
-                console.log('notworking')
-            }
-        nextPlayer()
+    thiefLight(player, hpLog, opPlayer) {
+            this.randomizerD20()
+                if ( this.rng >= 6 && this.rng != 20) {
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " hits with a sneaky stab, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
+                    player.health = player.health - (this.damage * this.rng + 1 );
+                } else if (this.rng < 6) {
+                    combatLog.textContent = this.name + "'s dagger fails to find their target!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD6();
+                    console.log(this.rng)
+                    combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage to their opponent!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 1 );
+                } else {
+                    console.log('notworking')
+                }
+            nextPlayer();
+
     }
-    thiefHeavy () {
-        this.randomizerD20()
-        console.log("Thief rolled a " + this.rng)
-            if ( this.rng >= 12 && this.rng != 20) {
-                this.randomizerD12();
-                console.log("Thief rolled a " + this.rng)
-                combatLog.textContent = this.name + " stabs their target with a rapid flurry of blows, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
-            } else if (this.rng < 12) {
-                combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
-            } else if (this.rng = 20) { 
-                this.randomizerD12();
-                console.log("Thief rolled a " + this.rng)
-                combatLog.textContent = this.name + " overwhelms their oppenent with a precise flurry of blows, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
-            } else {
-                console.log('notworking2')
+    thiefHeavy (player, hpLog, opPlayer) {
+            this.randomizerD20()
+            console.log("Thief rolled a " + this.rng)
+                if ( this.rng >= 12 && this.rng != 20) {
+                    this.randomizerD12();
+                    console.log("Thief rolled a " + this.rng)
+                    combatLog.textContent = this.name + " stabs their target with a rapid flurry of blows, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
+                    player.health = player.health - (this.damage * this.rng + 3 );
+                } else if (this.rng < 12) {
+                    combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
+                } else if (this.rng = 20) { 
+                    this.randomizerD12();
+                    console.log("Thief rolled a " + this.rng)
+                    combatLog.textContent = this.name + " overwhelms their oppenent with a precise flurry of blows, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
+                    player.health = player.health - (this.damage * this.rng * 2 + 3);
+                } else {
+                    console.log('notworking2')
+                }
+            nextPlayer();
             }
-        nextPlayer()
-        }
-    thiefSpecial() {
+    thiefSpecial(player, hpLog, opPlayer) {
         this.randomizerD20()
         if ( this.rng >= 10 && this.rng != 20) {
-            this.randomizerD6();
-            combatLog.textContent = this.name + " steals his oponent's vitality through vampiric magics, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent and healing for the same amount!";
-        } else if (this.rng < 10) {
-            combatLog.textContent = this.name + " misses their Steal Health!";
-        } else if (this.rng = 20) { 
-            this.randomizerD4();
-            combatLog.textContent = this.name + " drains the life out of his opponent with strong vampiric magics, dealing" + (this.damage * this.rng * 2 + 1 )+ " to their opponent and healing for the same amount!!!";
-        } else {
+                this.randomizerD4();
+                combatLog.textContent = this.name + " steals his oponent's vitality through vampiric magics, dealing " + ((this.damage * this.rng) + 1 )+ " damage to their opponent and healing for the same amount!";
+                player.health = player.health - (this.damage * this.rng + 1 );
+                console.log(((player.damage * player.rng) + 1) + "damage")
+            } else if (this.rng < 10) {
+                combatLog.textContent = this.name + " misses their Steal Health!";
+            } else if (this.rng = 20) { 
+                this.randomizerD4();
+                player.health = player.health - ((this.damage * this.rng * 2) + 1 );
+                combatLog.textContent = this.name + " drains the life out of his opponent with strong vampiric magics, dealing" + (this.damage * this.rng * 2 + 1 )+ " to their opponent and healing for the same amount!!!";
+            } else {
             console.log('notworking3')
-        }
-        nextPlayer()
+            }
+            nextPlayer()
+
     }
     constructor (name,health,damage, icon,rng) {
         super(name,health,damage,icon,rng);
@@ -287,10 +336,10 @@ class thief extends character {
 }
 // Character creation
 
-const Cleric = new cleric ("Odin", 10 , 1, "placeholder", 0);
-const Fighter = new fighter ("Sir Theodryn", 25, 1, "placeholder", 0);
-const Mage = new mage ("Crazy Melody", 15, 1, "placeholder", 0);
-const Thief = new thief ("Hendrick", 15, 1, "placeholder", 0);
+const Cleric = new cleric ("Odin", 40 , 40, 1, "placeholder", 0);
+const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "placeholder", 0);
+const Mage = new mage ("Crazy Melody", 35, 35, 1, "placeholder", 0);
+const Thief = new thief ("Hendrick", 35, 35, 1, "placeholder", 0);
 
 
 // BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION
@@ -300,70 +349,162 @@ const Thief = new thief ("Hendrick", 15, 1, "placeholder", 0);
 // setup event listeners that can vary based on ID
 // ???
 // PROFIT
-
 function actionSelector (active,classID, actionID) {
     if (activePlayer !== active) {
         return alert("Only the active Player can attack!");
-    }
-    
+    }    
     // data-String data-Class = class.id
     // data set element
-    if (classID == 0) {
-        if (actionID === 1) {
-            this.attack1()
-        } else if (actionID === 2) {
-            this.attack2()
-        } else if (actionID === 3) {
-            this.attack3()
+    if (activePlayer === 0) {
+        if (classID == 0) {
+            if (actionID === 1) {
+                this.attack1(player1Char)
+                return
+            } else if (actionID === 2) {
+                this.attack2(player1Char)
+                return
+            } else if (actionID === 3) {
+                this.attack3(player1Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 1) {
+            if (actionID === 1) {
+                Fighter.fighterLight(player1Char, hpLog1)
+                return
+            } else if (actionID === 2) {
+                Fighter.fighterHeavy(player1Char)
+                return
+            } else if (actionID === 3) {
+                Fighter.fighterSpecial(player1Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 2) {
+            if (actionID === 1) {
+                Mage.mageLight(player1Char)
+                return
+            } else if (actionID === 2) {
+                Mage.mageHeavy(player1Char)
+                return
+            } else if (actionID === 3) {
+                Mage.mageSpecial(player1Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 3) {
+            if (actionID === 1) {
+                Cleric.clericLight(player1Char)
+                return
+            } else if (actionID === 2) {
+                Cleric.clericHeavy(player1Char)
+                return
+            } else if (actionID === 3) {
+                Cleric.clericSpecial(player0Char)
+                return    
+            } else {
+                console.log('error, not a valid action id')
+            }
+        } else if (classID == 4) {
+            if (actionID === 1) {
+                Thief.thiefLight(player1Char)
+                return
+            } else if (actionID === 2) {
+                Thief.thiefHeavy(player1Char)
+                return
+            } else if (actionID === 3) {
+                Thief.thiefSpecial(player1Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
         } else {
-            console.log('error, not a valid action id')
+            console.log('error, not a valid class id')
+            return
         }
-    } else if (classID == 1) {
-
-        if (actionID === 1) {
-            Fighter.fighterLight()
-        } else if (actionID === 2) {
-            Fighter.fighterHeavy()
-        } else if (actionID === 3) {
-            Fighter.fighterSpecial()
+    }
+    if (activePlayer === 1) {
+        if (classID == 0) {
+            if (actionID === 1) {
+                this.attack1(player0Char)
+                return
+            } else if (actionID === 2) {
+                this.attack2(player0Char)
+                return
+            } else if (actionID === 3) {
+                this.attack3(player0Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 1) {
+            if (actionID === 1) {
+                Fighter.fighterLight(player0Char)
+                return
+            } else if (actionID === 2) {
+                Fighter.fighterHeavy(player0Char)
+                return
+            } else if (actionID === 3) {
+                Fighter.fighterSpecial(player0Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 2) {
+            if (actionID === 1) {
+                Mage.mageLight(player0Char)
+                return
+            } else if (actionID === 2) {
+                Mage.mageHeavy(player0Char)
+                return
+            } else if (actionID === 3) {
+                Mage.mageSpecial(player0Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 3) {
+            if (actionID === 1) {
+                Cleric.clericLight(player0Char)
+                return
+            } else if (actionID === 2) {
+                Cleric.clericHeavy(player0Char)
+                return
+            } else if (actionID === 3) {
+                Cleric.clericSpecial(player1Char) 
+                return   
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
+        } else if (classID == 4) {
+            if (actionID === 1) {
+                Thief.thiefLight(player0Char)
+                return
+            } else if (actionID === 2) {
+                Thief.thiefHeavy(player0Char)
+                return
+            } else if (actionID === 3) {
+                Thief.thiefSpecial(player0Char)
+                return
+            } else {
+                console.log('error, not a valid action id')
+                return
+            }
         } else {
-            console.log('error, not a valid action id')
+            console.log('error, not a valid class id')
+            return
         }
-    } else if (classID == 2) {
-
-        if (actionID === 1) {
-            Mage.mageLight()
-        } else if (actionID === 2) {
-            Mage.mageHeavy()
-        } else if (actionID === 3) {
-            Mage.mageSpecial()
-        } else {
-            console.log('error, not a valid action id')
-        }
-    } else if (classID == 3) {
-
-        if (actionID === 1) {
-            Cleric.clericLight()
-        } else if (actionID === 2) {
-            Cleric.clericHeavy()
-        } else if (actionID === 3) {
-            Cleric.clericSpecial()    
-        } else {
-            console.log('error, not a valid action id')
-        }
-    } else if (classID == 4) {
-
-        if (actionID === 1) {
-            Thief.thiefLight()
-        } else if (actionID === 2) {
-            Thief.thiefHeavy()
-        } else if (actionID === 3) {
-            Thief.thiefSpecial()
-        } else {
-            console.log('error, not a valid action id')
-        }
-    } else {
-        console.log('error, not a valid class id')
     }
 }
 
@@ -387,6 +528,7 @@ document.getElementById('bEnd').addEventListener('click', () => {
 
 //end button moves back the selected characters to the character select screen
 function resetCharacters(){
+    //removeSelected();
     document.getElementById('fighterID').dataset.playerid = "";
     document.getElementById('mageID').dataset.playerid = "";
     document.getElementById('clericID').dataset.playerid = "";
@@ -395,6 +537,7 @@ function resetCharacters(){
     characterSelect.appendChild(mageID);
     characterSelect.appendChild(clericID);
     characterSelect.appendChild(thiefID);
+
 }
 //switching players
 
@@ -415,15 +558,17 @@ function moveChar(charID){
         character1.appendChild(charID)
     }
 }
+// Setting character IDs
 function setCharID (charID) {
     if (activePlayer === 0) {
-        player0Char = document.getElementById(charID)
-        player0Char.dataset.classid 
+        player0Class = document.getElementById(charID);
+        player0Class.dataset.classid;
     } else if (activePlayer ===1) {
-        player1Char = document.getElementById(charID)
-        player1Char.dataset.classid 
+        player1Class = document.getElementById(charID);
+        player1Class.dataset.classid;
     }
 }
+// Assigning playerid
 function assignPlayer(charID){
     if (activePlayer === 0) {    
         document.getElementById(charID).dataset.playerid = 0;
@@ -432,50 +577,95 @@ function assignPlayer(charID){
         document.getElementById(charID).dataset.playerid = 1;
     }
 }
+// Assigning player's chosen class
 function assignCharClass(Class) {
     if (activePlayer === 0) {    
         Class.player = 0;
-        console.log(Class);
     }
     else if (activePlayer === 1) {
         Class.player = 1;
-        console.log(Class);
     }
 }
+// Assingning characters to the active player
+function assignChar(Class){
+    if (activePlayer === 0) {    
+        player0Char = Object.assign(Class);
+        console.log(player0Char);
+    }
+    else if (activePlayer === 1) {
+        player1Char = Object.assign(Class);
+        console.log(player1Char);
+        console.log(typeof(player1Char.health));
+        console.log(player1Char.name + " has " + player1Char.health + " hp.");
+    } 
+}
+
+
+// Duplicate characters into the selectedCharacter div
+/*function assignSelected (charID) {
+    if (activePlayer === 0) {    
+        let select0 = document.getElementById(charID);
+        let clone0 = select0.cloneNode();
+        document.getElementById("selectedCharacter0").appendChild(clone0);
+    }
+    else if (activePlayer === 1) {
+        let select1 = document.getElementById(charID);
+        let clone1 = select1.cloneNode();
+        document.getElementById("selectedCharacter1").appendChild(clone1);
+    }  
+}
+*/
+// Remove the character of the selectedCharacter div
+/*function removeSelected () {
+    removeSelect0 = document.getElementById("selectedCharacter0");
+    removeSelect0.removeChild(removeSelect0);
+    removeSelect1 = document.getElementById("selectedCharacter1");
+    removeSelect1.removeChild(removeSelect1);
+}
+*/
+//Event listeners for character select
 
 document.getElementById('fighterID').addEventListener('click', () => {
     moveChar(fighterID);
+    //assignSelected('fighterID');
     setCharID('fighterID');
     assignPlayer('fighterID');
     assignCharClass(Fighter);
     changeActionBox("(Fighter)");
+    assignChar(Fighter);
     nextPlayer();
 })
 
 document.getElementById('mageID').addEventListener('click', () => {
     moveChar(mageID);
+    ///assignSelected('mageID');
     setCharID('mageID');
     assignPlayer('mageID');
     assignCharClass(Mage);
     changeActionBox("(Mage)");
+    assignChar(Mage);
     nextPlayer();
 })
 
 document.getElementById('clericID').addEventListener('click', () => {
     moveChar(clericID);
+    ///assignSelected('clericID');
     setCharID('clericID');
     assignPlayer('clericID');
     assignCharClass(Cleric);
     changeActionBox("(Cleric)");
+    assignChar(Cleric);
     nextPlayer();
 })
 
 document.getElementById('thiefID').addEventListener('click', () => {
     moveChar(thiefID);
+    ///assignSelected('thiefID');
     setCharID('thiefID');
     assignPlayer('thiefID');
     assignCharClass(Thief);
     changeActionBox("(Thief)");
+    assignChar(Thief);
     nextPlayer();
 })
 
@@ -500,28 +690,28 @@ function changeActionBox (Class) {
 
     document.getElementById('p0Atk1').addEventListener('click' , () => {
         //data
-        actionSelector(0,player0Char.dataset.classid,1)
+        actionSelector(0,player0Class.dataset.classid,1)
     });
 
     document.getElementById('p0Atk2').addEventListener('click' , () => {
-        actionSelector(0,player0Char.dataset.classid,2)
+        actionSelector(0,player0Class.dataset.classid,2)
     });
 
     document.getElementById('p0Atk3').addEventListener('click' , () => {
-        actionSelector(0,player0Char.dataset.classid,3)
+        actionSelector(0,player0Class.dataset.classid,3)
     });
 
 //player 1
     document.getElementById('p1Atk1').addEventListener('click' , () => {
-        actionSelector(1,player1Char.dataset.classid,1)
+        actionSelector(1,player1Class.dataset.classid,1)
     });
 
     document.getElementById('p1Atk2').addEventListener('click' , () => {
-        actionSelector(1,player1Char.dataset.classid,2)
+        actionSelector(1,player1Class.dataset.classid,2)
     });
 
     document.getElementById('p1Atk3').addEventListener('click' , () => {
-        actionSelector(1,player1Char.dataset.classid,3)
+        actionSelector(1,player1Class.dataset.classid,3)
     });
 
 
@@ -537,9 +727,3 @@ things to figure out:
 //hp implementation: give characters a max and current hp property
 //character select button will reset the current hp to max hp 
 // make the html healthbars dynamic by linking the character0.classID to it
-
-
-// maybe give characters a PlayerControlled property of 0 or 1?
-
-//HOW TO MAKE CHARCATERS TARGET EACH OTHER BASED ON PLAYERS:
-//

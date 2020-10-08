@@ -1,3 +1,6 @@
+* {
+    background-color: rgb(230,241,242);
+}
 .characterimages {
     display: flex;
     margin: 50px 10px 10px 50px;
@@ -18,9 +21,17 @@
     height: 100px;
 
 }
+.character{
+    border-radius: 25%;
+}
 
 .playerTracker0, .playerTracker1 {
     display: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: grey;
+    margin: 14px 14px 10px 14px;
+
 }
 .active {
     display: block;

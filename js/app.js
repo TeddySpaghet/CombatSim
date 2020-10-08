@@ -619,10 +619,14 @@ function actionSelector (active,classID, actionID) {
 // Button mapping -- screen changers
 
 document.getElementById('bStart').addEventListener('click', () => {
-    document.getElementById('battleScreen').style.display =  "flex";
-    document.getElementById('battleScreen').style.flexDirection = "column";
-    document.getElementById('selectScreen').style.display = "none";
-    nextPlayer()
+    if ((document.getElementById('character0').childNodes.length == 6 && document.getElementById('character1').childNodes.length == 6)) {
+        document.getElementById('battleScreen').style.display =  "flex";
+        document.getElementById('battleScreen').style.flexDirection = "column";
+        document.getElementById('selectScreen').style.display = "none";
+        nextPlayer()
+    } else {
+        return alert('You must both select a character before being able to battle!');
+    }
 });
 
 

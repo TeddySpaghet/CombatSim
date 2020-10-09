@@ -16,6 +16,8 @@ I've always been a gamer and big fan of RolePlayingGames, including tabletop gam
 
 To play the game, each player first selects a character. They then press the "Battle Start!" button and are taken into the battle screen. Each player then takes turns selecting the action they want, which serve to either damage their opponent or heal themselves (or both!). Once a player's character is dead, the remaining player is congratulated for winning the round and their score increases. At any point during or after the battle, the players have the option to click the "Start Over!" to return to the title screen and to choose different characters or start the fight anew.
 
+!
+
 ### Credits
 
 [Everything to do with dataset](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*)

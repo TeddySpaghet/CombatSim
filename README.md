@@ -8,7 +8,9 @@ I've always been a gamer and big fan of RolePlayingGames, including tabletop gam
 
 ### Screenshots
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Game1](https://TeddySpaghet/CombatSim/assets/PusheenGame1.png)
+![Game2](https://TeddySpaghet/CombatSim/assets/PusheenGame2.png)
+![Game3](https://TeddySpaghet/CombatSim/assets/PusheenGame3.png)
 
 
 

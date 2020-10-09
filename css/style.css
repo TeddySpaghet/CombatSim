@@ -23,6 +23,7 @@ body {
 
 }
 
+
 .character:hover {
     box-shadow: 0px 0px 30px 10px rgb(182,168,155);
     transition: .25s;

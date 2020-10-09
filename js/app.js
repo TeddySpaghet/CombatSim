@@ -24,23 +24,38 @@ document.getElementById('score0').innerText = "P1 Score: 0"
 
 function hpTracker () {
     if (activePlayer === 0) {
-        hpLog0 = document.querySelector('.healthbar0');
+        hpLog0 = document.getElementById('health0');
         hpLog0.textContent = player0Char.health + " / " + player0Char.maxHealth + " HP";
     } else if (activePlayer === 1) {
-        hpLog1 = document.querySelector('.healthbar1');
+        hpLog1 = document.getElementById('health1');
         hpLog1.textContent = player1Char.health + " / " + player1Char.maxHealth + " HP";
     }
 }
 
 function hpLogger(player, hpLog) {
     if (activePlayer=== 0) {
-        hpLog0 = document.querySelector('.healthbar0');
+        hpLog0 = document.getElementById('health0');
         hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
     } else if (activePlayer === 1) {
-        hpLog1 = document.querySelector('.healthbar1');
+        hpLog1 = document.getElementById('health1');
     hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
     }
 }
+
+//dynamic healthbars
+
+function dynHP() {
+    hpBarg0 = document.getElementById('healthbarg0');
+    hpBarg1 = document.getElementById('healthbarg1');
+    hpBarg0.style.width= ((player0Char.health / player0Char.maxHealth) * 250)+ "px";
+    hpBarg1.style.width= ((player1Char.health / player1Char.maxHealth) * 250)+ "px";
+    hpBarb0 = document.getElementById('healthbarb0');
+    hpBarb1 = document.getElementById('healthbarb1');
+    hpBarb0.style.width= ((player0Char.health / player0Char.maxHealth) * 250)+ "px";
+    hpBarb1.style.width= ((player1Char.health / player1Char.maxHealth) * 250)+ "px";
+
+}
+
 
 // function to end the game
 function endGame (){
@@ -455,14 +470,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 1) {
             if (actionID === 1) {
                 Fighter.fighterLight(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Fighter.fighterHeavy(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Fighter.fighterSpecial(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else {
@@ -472,14 +490,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 2) {
             if (actionID === 1) {
                 Mage.mageLight(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Mage.mageHeavy(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Mage.mageSpecial(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else {
@@ -489,14 +510,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 3) {
             if (actionID === 1) {
                 Cleric.clericLight(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Cleric.clericHeavy(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Cleric.clericSpecial(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return    
             } else {
@@ -505,14 +529,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 4) {
             if (actionID === 1) {
                 Thief.thiefLight(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Thief.thiefHeavy(player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Thief.thiefSpecial(player1Char, hpLog1, player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else {
@@ -528,12 +555,15 @@ function actionSelector (active,classID, actionID) {
         if (classID == 0) {
             if (actionID === 1) {
                 this.attack1(player0Char, hpLog0)
+                dynHP()
                 return
             } else if (actionID === 2) {
                 this.attack2(player0Char, hpLog0)
+                dynHP()
                 return
             } else if (actionID === 3) {
                 this.attack3(player0Char, hpLog0)
+                dynHP()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -542,14 +572,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 1) {
             if (actionID === 1) {
                 Fighter.fighterLight(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Fighter.fighterHeavy(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Fighter.fighterSpecial(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else {
@@ -559,14 +592,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 2) {
             if (actionID === 1) {
                 Mage.mageLight(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Mage.mageHeavy(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Mage.mageSpecial(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else {
@@ -576,14 +612,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 3) {
             if (actionID === 1) {
                 Cleric.clericLight(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Cleric.clericHeavy(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Cleric.clericSpecial(player1Char, hpLog1)
+                dynHP()
                 endGame() 
                 return   
             } else {
@@ -593,14 +632,17 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 4) {
             if (actionID === 1) {
                 Thief.thiefLight(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 2) {
                 Thief.thiefHeavy(player0Char, hpLog0)
+                dynHP()
                 endGame()
                 return
             } else if (actionID === 3) {
                 Thief.thiefSpecial(player0Char, hpLog0, player1Char, hpLog1)
+                dynHP()
                 endGame()
                 return
             } else {
@@ -619,7 +661,7 @@ function actionSelector (active,classID, actionID) {
 // Button mapping -- screen changers
 
 document.getElementById('bStart').addEventListener('click', () => {
-    if ((document.getElementById('character0').childNodes.length == 6 && document.getElementById('character1').childNodes.length == 6)) {
+    if ((document.getElementById('character0').childNodes.length == 8 && document.getElementById('character1').childNodes.length == 8)) {
         document.getElementById('battleScreen').style.display =  "flex";
         document.getElementById('battleScreen').style.flexDirection = "column";
         document.getElementById('selectScreen').style.display = "none";
@@ -654,6 +696,10 @@ function resetCharacters(){
     Mage.health = Mage.maxHealth;
     Cleric.health = Cleric.maxHealth;
     Thief.health = Thief.maxHealth;
+    document.getElementById('healthbarg0').style.width = "100%";
+    document.getElementById('healthbarg1').style.width = "100%";
+    document.getElementById('healthbarb0').style.width = "100%";
+    document.getElementById('healthbarb1').style.width = "100%";
     // reset logs
     combatLog.textContent = "Combat Log";
     atkLog.textContent = "Attack Log";
@@ -774,7 +820,7 @@ function actionEvtListnr(event) {
     console.log("this is a " + element.dataset.classid);
     console.log(document.getElementById('character0').childNodes);
     console.log(document.getElementById('character1').childNodes);
-    if (document.getElementById('character0').childNodes.length == 5 || document.getElementById('character1').childNodes.length == 5) {
+    if (document.getElementById('character0').childNodes.length == 7 || document.getElementById('character1').childNodes.length == 7) {
         if (element.dataset.classid == 1) {
             moveChar(fighterID);
             assignSelected('fighterID');

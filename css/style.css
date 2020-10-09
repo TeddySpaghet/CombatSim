@@ -39,10 +39,40 @@
     align-items: center;
     justify-content: center;
 }
+#health0,#health1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.healthbarr {
+    background-color: red;
+    border-radius: 25px;
+    width: 250px;
+    height: 25px;
+}
+#healthbarg0,#healthbarg1 {
+    background-color: rgb(136, 226, 0);
+    border-radius: 25px;
+    transition: 1s;
+    width: 250px;
+    height: 25px;
+}
+#healthbarb0,#healthbarb1 {
+    background-color: rgb(59, 200, 235);
+    border-radius: 25px;
+    transition: 2s;
+    width: 250px;
+    height: 25px;
+}
+
+
 
 
 li {
     margin: 5px 2px 0px 2px;
+    padding: 2%;
+    width: 160px;
 }
 li:hover{
     box-shadow: 0px 0px 10px 5px grey;

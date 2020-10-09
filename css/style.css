@@ -1,8 +1,9 @@
-* {
+body {
     background-color: rgb(215,241,242);
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .characterimages {
@@ -13,7 +14,7 @@
 }
 
 .character:hover {
-    box-shadow: 0px 0px 30px 10px grey;
+    box-shadow: 0px 0px 30px 10px rgb(182,168,155);
     transition: .25s;
 }
 
@@ -43,6 +44,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color:grey;
+    font-size: 22px;
 
 }
 .healthbarr {
@@ -50,6 +53,7 @@
     border-radius: 25px;
     width: 250px;
     height: 25px;
+    margin-bottom: 10px;
 }
 #healthbarg0,#healthbarg1 {
     background-color: rgb(136, 226, 0);
@@ -67,29 +71,41 @@
 }
 
 
-
+ul {
+    margin:  0;
+    padding: 0;
+}
 
 li {
-    margin: 5px 2px 0px 2px;
+    margin: 5px auto;
     padding: 2%;
-    width: 160px;
+    width: 250px;
+    font-size: 20px;
+    color: #62686E;
+    list-style: none;
+    border-radius: 25px;
 }
 li:hover{
-    box-shadow: 0px 0px 10px 5px grey;
+    box-shadow: 0px 0px 5px 2px rgb(182,168,155);
+    background-color: rgb(200,221,242);
+    cursor: pointer;
 }
 
-.startButton {
+
+.startButton,.endButton {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
-
+    height: 100px;  
 }
-.endButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
+.button {
+    background-color: rgb(182,168,155);
+    border-radius: 25px;
+    font-size: 28px;
+}
+.button:hover {
+    background-color: rgb(247,241,222);
+    box-shadow: 0px 0px 5px 2px rgb(247,241,222);
 }
 .character{
     border-radius: 25%;
@@ -102,30 +118,43 @@ li:hover{
 }
 .playerTracker0, .playerTracker1 {
     display: none;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: bold;
     color: grey;
     margin: 14px 14px 10px 14px;
-
+    
 }
+
+.combatLog {
+    background-color:rgba(215, 241, 242, 0.836);
+    margin: 5px auto;
+    padding: 2%;
+    width: 750px;
+    font-size: 24px;
+    color: #393c3f;
+    list-style: none;
+    border-radius: 25px;
+    border: 2px solid grey;
+    background-color: rgb(247,241,222);
+}
+
 .vicmessage {
+    font-size: 32px;
+    font-weight: bolder;
+    color: grey;
     display: none;
     margin: 12% 5px 0px 5px;
 }
 .scores {
     display: flex;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: bolder;
     color: grey;
     margin: 0px 2% 0px 2%;
 
 }
 .active {
-    display: block;
+    display: inline-block;
 }
 
-#log {
-    border: 2px solid grey;
-
-}
 

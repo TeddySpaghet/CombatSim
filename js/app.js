@@ -20,76 +20,7 @@ score2 = 0;
 document.getElementById('score1').innerText = "P2 Score: 0"
 document.getElementById('score0').innerText = "P1 Score: 0"
 
-// Assigning player healthbars
 
-function hpTracker () {
-    if (activePlayer === 0) {
-        hpLog0 = document.getElementById('health0');
-        hpLog0.textContent = player0Char.health + " / " + player0Char.maxHealth + " HP";
-    } else if (activePlayer === 1) {
-        hpLog1 = document.getElementById('health1');
-        hpLog1.textContent = player1Char.health + " / " + player1Char.maxHealth + " HP";
-    }
-}
-
-function hpLogger(player, hpLog) {
-    if (activePlayer=== 0) {
-        hpLog0 = document.getElementById('health0');
-        hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
-    } else if (activePlayer === 1) {
-        hpLog1 = document.getElementById('health1');
-    hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
-    }
-}
-
-//dynamic healthbars
-
-function dynHP() {
-    hpBarg0 = document.getElementById('healthbarg0');
-    hpBarg1 = document.getElementById('healthbarg1');
-    hpBarg0.style.width= ((player0Char.health / player0Char.maxHealth) * 250)+ "px";
-    hpBarg1.style.width= ((player1Char.health / player1Char.maxHealth) * 250)+ "px";
-    hpBarb0 = document.getElementById('healthbarb0');
-    hpBarb1 = document.getElementById('healthbarb1');
-    hpBarb0.style.width= ((player0Char.health / player0Char.maxHealth) * 250)+ "px";
-    hpBarb1.style.width= ((player1Char.health / player1Char.maxHealth) * 250)+ "px";
-
-}
-
-
-// function to end the game
-function endGame (){
-    if (player0Char.health <= 0 ) {
-        document.getElementById('victory').style.display =  "block";
-        document.getElementById('victory').innerText = player1Char.name + " is the winner!";
-        score2 ++;
-        document.getElementById('score1').innerText = "P2 Score: " + score2;
-            if (player0Char.classID === 1) {
-                document.getElementById('fighterID').src = "assets/deadpusheen.png";
-            } else if (player0Char.classID === 2) {
-                document.getElementById('mageID').src = "assets/deadpusheen.png";
-            } else if (player0Char.classID === 3) {
-                document.getElementById('clericID').src = "assets/deadpusheen.png";
-            } else if (player0Char.classID === 4) {
-                document.getElementById('thiefID').src = "assets/deadpusheen.png";
-            }
-        
-    } else if (player1Char.health <= 0) {
-        document.getElementById('victory').style.display =  "block";
-        document.getElementById('victory').innerText = player0Char.name + " is the winner!";
-        score1 ++;
-        document.getElementById('score0').innerText = "P1 Score: " + score1;
-        if (player1Char.classID === 1) {
-            document.getElementById('fighterID').src = "assets/deadpusheen.png";
-        } else if (player1Char.classID === 2) {
-            document.getElementById('mageID').src = "assets/deadpusheen.png";
-        } else if (player1Char.classID === 3) {
-            document.getElementById('clericID').src = "assets/deadpusheen.png";
-        } else if (player1Char.classID === 4) {
-            document.getElementById('thiefID').src = "assets/deadpusheen.png";
-        }
-    }
-}
 //base character creation and attribute allocation
 
 class character {
@@ -450,8 +381,6 @@ function actionSelector (active,classID, actionID) {
     if (activePlayer !== active) {
         return alert("Only the active Player can attack!");
     }    
-    // data-String data-Class = class.id
-    // data set element
     if (activePlayer === 0) {
         if (classID == 0) {
             if (actionID === 1) {
@@ -811,6 +740,84 @@ function removeSelected () {
         }
 }
 
+// Assigning player healthbars
+
+function hpTracker () {
+    if (activePlayer === 0) {
+        hpLog0 = document.getElementById('health0');
+        hpLog0.textContent = player0Char.health + " / " + player0Char.maxHealth + " HP";
+    } else if (activePlayer === 1) {
+        hpLog1 = document.getElementById('health1');
+        hpLog1.textContent = player1Char.health + " / " + player1Char.maxHealth + " HP";
+    }
+}
+
+function hpLogger(player, hpLog) {
+    if (activePlayer=== 0) {
+        hpLog0 = document.getElementById('health0');
+        hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
+    } else if (activePlayer === 1) {
+        hpLog1 = document.getElementById('health1');
+    hpLog.textContent = player.health + " / " + player.maxHealth + " HP";
+    }
+}
+
+//dynamic healthbars
+
+function dynHP() {
+    hpBarg0 = document.getElementById('healthbarg0');
+    hpBarg1 = document.getElementById('healthbarg1');
+    hpBarg0.style.width= ((player0Char.health / player0Char.maxHealth) * 250)+ "px";
+    hpBarg1.style.width= ((player1Char.health / player1Char.maxHealth) * 250)+ "px";
+    hpBarb0 = document.getElementById('healthbarb0');
+    hpBarb1 = document.getElementById('healthbarb1');
+    hpBarb0.style.width= ((player0Char.health / player0Char.maxHealth) * 250)+ "px";
+    hpBarb1.style.width= ((player1Char.health / player1Char.maxHealth) * 250)+ "px";
+        if (player0Char.health < 0) {
+            hpBarb0.style.width= 0 + "px";
+            hpBarg0.style.width= 0 + "px";
+        } else if (player1Char.health < 0) {
+            hpBarg1.style.width= 0 + "px";
+            hpBarb1.style.width= 0 + "px";
+        }
+}
+
+
+// function to end the game
+function endGame (){
+    if (player0Char.health <= 0 ) {
+        document.getElementById('victory').style.display =  "block";
+        document.getElementById('victory').innerText = player1Char.name + " is the winner!";
+        score2 ++;
+        document.getElementById('score1').innerText = "P2 Score: " + score2;
+            if (player0Char.classID === 1) {
+                document.getElementById('fighterID').src = "assets/deadpusheen.png";
+            } else if (player0Char.classID === 2) {
+                document.getElementById('mageID').src = "assets/deadpusheen.png";
+            } else if (player0Char.classID === 3) {
+                document.getElementById('clericID').src = "assets/deadpusheen.png";
+            } else if (player0Char.classID === 4) {
+                document.getElementById('thiefID').src = "assets/deadpusheen.png";
+            }
+        
+    } else if (player1Char.health <= 0) {
+        document.getElementById('victory').style.display =  "block";
+        document.getElementById('victory').innerText = player0Char.name + " is the winner!";
+        score1 ++;
+        document.getElementById('score0').innerText = "P1 Score: " + score1;
+        if (player1Char.classID === 1) {
+            document.getElementById('fighterID').src = "assets/deadpusheen.png";
+        } else if (player1Char.classID === 2) {
+            document.getElementById('mageID').src = "assets/deadpusheen.png";
+        } else if (player1Char.classID === 3) {
+            document.getElementById('clericID').src = "assets/deadpusheen.png";
+        } else if (player1Char.classID === 4) {
+            document.getElementById('thiefID').src = "assets/deadpusheen.png";
+        }
+    }
+}
+
+
 //Event listeners for character select
 //test func
 // change elID to event.target
@@ -818,8 +825,8 @@ function actionEvtListnr(event) {
     // event target gives element clicked
     element = event.target
     console.log("this is a " + element.dataset.classid);
-    console.log(document.getElementById('character0').childNodes);
-    console.log(document.getElementById('character1').childNodes);
+    console.log(document.getElementById('character0').childNodes); //important in case html changes, do not remove
+    console.log(document.getElementById('character1').childNodes); // ^
     if (document.getElementById('character0').childNodes.length == 7 || document.getElementById('character1').childNodes.length == 7) {
         if (element.dataset.classid == 1) {
             moveChar(fighterID);
@@ -932,11 +939,6 @@ function changeActionBox (Class) {
 things to figure out: 
 -maybe figure out how to make event listener more DRY
 -potentially create new img objects via JS rather than hardcode them in HTML
--fleshing out actions to have real impact
--figure out if changing bits of functions is a thing
-
 */
 //stretch goal set up action descriptor hover boxes
-//hp implementation: give characters a max and current hp property
-//character select button will reset the current hp to max hp 
-// make the html healthbars dynamic by linking the character0.classID to it
+// more stats like defense and implementation of a turn timer

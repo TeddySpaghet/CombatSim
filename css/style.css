@@ -6,6 +6,16 @@ body {
     font-family: 'Varela Round', sans-serif;
 }
 
+.title {
+    display: flex;
+    font-size: 56px;
+    font-weight: bolder;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -25px;
+}
+
+
 .characterimages {
     display: flex;
     justify-content: center;
@@ -156,5 +166,3 @@ li:hover{
 .active {
     display: inline-block;
 }
-
-

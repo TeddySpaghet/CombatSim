@@ -22,9 +22,17 @@ To play the game, each player first selects a character. They then press the "Ba
 
 Languages used: html, css, js
 
+I created classes for each character that extend on the basic character class, helping to streamline the basic properties and functionalities needed for the action functions to work.
+
 ![Classes](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code1.png)
-![Dynamic action selector](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code1.png)
-![Event listener](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code1.png)
+
+This action selector function takes in the value of the player you want to be able to complete the action with, the ID of the Class they're using, and the value of the attackID you want to run, and allows for easy expansion of the interface in the future. This dynamic approach keeps everything organized into an easily troubleshot environment.
+
+![Dynamic action selector](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code2.png)
+
+The event listener attached to the characters is where most of the behind the scene functionality occurs, assigning values to each character element that can be referred to in order to dynamically display and access the specific actions you want for each character.
+
+![Event listener](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code3.png)
 
 ### Credits
 

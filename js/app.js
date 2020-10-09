@@ -104,7 +104,7 @@ class fighter extends character {
         }
     fighterSpecial(player, hpLog) { 
             this.randomizerD20()
-            if ( this.rng >= 10 && this.rng < 18) {
+            if ( this.rng >= 10 && this.rng < 19) {
                 this.randomizerD10();
                 console.log("Fighter rolled a " + this.rng);
                 combatLog.textContent = this.name + " hits with a Swing and Punch combo, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
@@ -112,7 +112,7 @@ class fighter extends character {
                 hpLogger(player, hpLog);
             } else if (this.rng < 10) {
                 combatLog.textContent = this.name + " is unable to connect their Swing and Punch combo!";
-            } else if (this.rng >= 18) { 
+            } else if (this.rng >= 19) { 
                 this.randomizerD10();
                 console.log(this.rng);
                 combatLog.textContent = this.name + " critically hits with their Swing and Punch combo, dealing " + (this.damage * this.rng * 2 + 3 ) + " damage and sending their opponent flying!!!";
@@ -367,7 +367,7 @@ class thief extends character {
 const Cleric = new cleric ("Odin", 40 , 40, 1, "assets/clericpusheen.png", 0);
 const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "assets/warriorpusheen.png", 0);
 const Mage = new mage ("Crazy Melody", 35, 35, 1, "assets/magepusheen.png", 0);
-const Thief = new thief ("Hendrick", 35, 35, 1, "assets/thiefpusheenupdated.png", 0);
+const Thief = new thief ("Hendrick", 40, 40, 1, "assets/thiefpusheenupdated.png", 0);
 
 
 // BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION

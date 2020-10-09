@@ -8,9 +8,9 @@ I've always been a gamer and big fan of RolePlayingGames, including tabletop gam
 
 ### Screenshots
 
-![Game1](https://TeddySpaghet/CombatSim/assets/PusheenGame1.png)
-![Game2](https://TeddySpaghet/CombatSim/assets/PusheenGame2.png)
-![Game3](https://TeddySpaghet/CombatSim/assets/PusheenGame3.png)
+![Game1](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/PusheenGame1.png)
+![Game2](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/PusheenGame2.png)
+![Game3](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/PusheenGame3.png)
 
 
 

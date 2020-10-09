@@ -850,7 +850,7 @@ function actionEvtListnr(event) {
             setCharID('clericID');
             assignPlayer('clericID');
             assignCharClass(Cleric);
-            changeActionBox("(cleric)");
+            changeActionBox("(Cleric)");
             assignChar(Cleric);
         } else if (element.dataset.classid == 4) {
             moveChar(thiefID);
@@ -858,7 +858,7 @@ function actionEvtListnr(event) {
             setCharID('thiefID');
             assignPlayer('thiefID');
             assignCharClass(Thief);
-            changeActionBox("(thief)");
+            changeActionBox("(Thief)");
             assignChar(Thief);   
         }
         hpTracker();

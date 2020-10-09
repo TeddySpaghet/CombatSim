@@ -22,8 +22,15 @@ To play the game, each player first selects a character. They then press the "Ba
 
 Languages used: html, css, js
 
+![Classes](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code1.png)
+![Dynamic action selector](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code1.png)
+![Event listener](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/P1code1.png)
 
 ### Credits
 
 [Everything to do with dataset](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*)
- Helped in making this program able to replay infinitely [removeChild] (https://www.w3schools.com/jsref/met_node_removechild.asp)
+Helped in making this program able to replay infinitely [removeChild] (https://www.w3schools.com/jsref/met_node_removechild.asp)
+
+### Future Development
+
+After reformatting the code for better performance and readability, I plan to implement popup boxes when hovering above the characters and their actions which will act as descriptors. I also plan to implement an imput field where you can name your Pusheens to allow for an even more engaging user experience. Furthermore, I will implement deeper mechanics with the use of a turn timer, notably statuses such as damage over time as well as buffs and debuffs.

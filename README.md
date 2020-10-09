@@ -29,6 +29,7 @@ Languages used: html, css, js
 ### Credits
 
 [Everything to do with dataset](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*)
+
 Helped in making this program able to replay infinitely [removeChild] (https://www.w3schools.com/jsref/met_node_removechild.asp)
 
 ### Future Development

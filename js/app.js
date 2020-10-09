@@ -658,7 +658,7 @@ function nextPlayer() {
 // Character selection mapping
 function moveChar(charID){
     console.log(document.getElementById('character0').childNodes);
-    if (activePlayer === 0 ) {    // want to make it so that the conditional includes an and && that checks if charID is already a child of character 0 or 1
+    if (activePlayer === 0 ) {    
         character0.appendChild(charID);
         console.log(document.getElementById('character0').childNodes);
     }

@@ -16,8 +16,14 @@ I've always been a gamer and big fan of RolePlayingGames, including tabletop gam
 
 To play the game, each player first selects a character. They then press the "Battle Start!" button and are taken into the battle screen. Each player then takes turns selecting the action they want, which serve to either damage their opponent or heal themselves (or both!). Once a player's character is dead, the remaining player is congratulated for winning the round and their score increases. At any point during or after the battle, the players have the option to click the "Start Over!" to return to the title screen and to choose different characters or start the fight anew.
 
-!
+![WireFrame](https://github.com/TeddySpaghet/CombatSim/blob/main/assets/project1WireFrame.png)
+
+### Technologies & Code Snippets
+
+Languages used: html, css, js
+
 
 ### Credits
 
 [Everything to do with dataset](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*)
+ Helped in making this program able to replay infinitely [removeChild] (https://www.w3schools.com/jsref/met_node_removechild.asp)

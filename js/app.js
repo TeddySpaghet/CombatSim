@@ -55,6 +55,8 @@ class character {
     }
 }
 
+
+
 // special class addition, adding a special ability flavored to specific class
 
 class fighter extends character {
@@ -65,7 +67,7 @@ class fighter extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " hits with a quick thrust, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
                     player.health = player.health - (this.damage * this.rng + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 6) {
                     combatLog.textContent = this.name + "'s blade fails to find their target!";
                 } else if (this.rng = 20) { 
@@ -73,7 +75,7 @@ class fighter extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking')
                 }
@@ -87,7 +89,7 @@ class fighter extends character {
                     console.log("Fighter rolled a " + this.rng)
                     combatLog.textContent = this.name + " manages to rend their foe with an overhead strike dealing " + (this.damage * this.rng + 3 )+ " damage!";
                     player.health = player.health - (this.damage * this.rng + 3 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 12) {
                     combatLog.textContent = this.name + " loses balance when preparing to attack, and fails to seize the initiative!";
                 } else if (this.rng = 20) { 
@@ -95,7 +97,7 @@ class fighter extends character {
                     console.log("Fighter rolled a " + this.rng)
                     combatLog.textContent = this.name + " carves their sword deep into their foe with an overhead strike, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 3);
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking2')
                 }
@@ -109,7 +111,7 @@ class fighter extends character {
                 console.log("Fighter rolled a " + this.rng);
                 combatLog.textContent = this.name + " hits with a Swing and Punch combo, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
                 player.health = player.health - (this.damage * this.rng + 3 );
-                hpLogger(player, hpLog);
+                postAction(player, hpLog);
             } else if (this.rng < 10) {
                 combatLog.textContent = this.name + " is unable to connect their Swing and Punch combo!";
             } else if (this.rng >= 19) { 
@@ -117,7 +119,7 @@ class fighter extends character {
                 console.log(this.rng);
                 combatLog.textContent = this.name + " critically hits with their Swing and Punch combo, dealing " + (this.damage * this.rng * 2 + 3 ) + " damage and sending their opponent flying!!!";
                 player.health = player.health - (this.damage * this.rng * 2 + 3);
-                hpLogger(player, hpLog);
+                postAction(player, hpLog);
             } else {
                 console.log('notworking3')
             }
@@ -139,7 +141,7 @@ class mage extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " sends a firebolt flying at their foe, dealing " + (this.damage * this.rng + 1 )+ " damage!";
                     player.health = player.health - (this.damage * this.rng + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 6) {
                     combatLog.textContent = this.name + " is unable to concentrate on their spell!";
                 } else if (this.rng = 20) { 
@@ -147,7 +149,7 @@ class mage extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " sends their foe reeling with pain, their firebolt is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking')
                 }
@@ -162,7 +164,7 @@ class mage extends character {
                     console.log("Mage rolled a " + this.rng)
                     combatLog.textContent = this.name + " conjures a powerful fireblast, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
                     player.health = player.health - (this.damage * this.rng + 3 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 12) {
                     combatLog.textContent = this.name + "'s casting of their spell fizzles out, leaving them open to attack!";
                 } else if (this.rng = 20) { 
@@ -170,7 +172,7 @@ class mage extends character {
                     console.log("Mage rolled a " + this.rng)
                     combatLog.textContent = this.name + " summons a huge burst of flames, and critically hits with fireblast for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 3);
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking2')
                 }
@@ -184,17 +186,17 @@ class mage extends character {
                 this.randomizerD4();
                 combatLog.textContent = this.name + " hits with two magic missles dealing " + ((this.damage * this.rng + 1) * 2 )+ " damage to their opponent!";
                 player.health = player.health - ((this.damage * this.rng + 1) * 2 );
-                hpLogger(player, hpLog);
+                postAction(player, hpLog);
             } else if (this.rng < 9) {
                 this.randomizerD4();
                 combatLog.textContent = this.name + " hits with one magic missle dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
                 player.health = player.health - ((this.damage * this.rng + 1) * 1 );
-                hpLogger(player, hpLog);
+                postAction(player, hpLog);
             } else if (this.rng >= 18) { 
                 this.randomizerD4();
                 combatLog.textContent = this.name + " hits with all three magic missle dealing " + ((this.damage * this.rng + 1) * 3 )+ " damage to their opponent!!!";
                 player.health = player.health - ((this.damage * this.rng + 1) * 3 );
-                hpLogger(player, hpLog);
+                postAction(player, hpLog);
             } else {
                 console.log('notworking3')
             }
@@ -216,7 +218,7 @@ class cleric extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " slams their opponent with their mace, dealing " + (this.damage * this.rng + 1 )+ " damage!";
                     player.health = player.health - (this.damage * this.rng + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 6) {
                     combatLog.textContent = this.name + "'s mace fails to find their target!";
                 } else if (this.rng = 20) { 
@@ -224,7 +226,7 @@ class cleric extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " bashes their opponent in the head, critically hitting and dealing " + (this.damage * this.rng * 2 + 1 )+ " damage!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking')
                 }
@@ -239,7 +241,7 @@ class cleric extends character {
                     console.log("Cleric rolled a " + this.rng)
                     combatLog.textContent = this.name + "'s mace begins to glow with divine light before stricking their opponent, dealing " + (this.damage * this.rng + 3 )+ " damage!";
                     player.health = player.health - (this.damage * this.rng + 3 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 12) {
                     combatLog.textContent = this.name + " is unable to muster any divine power!";
                 } else if (this.rng = 20) { 
@@ -247,7 +249,7 @@ class cleric extends character {
                     console.log("Cleric rolled a " + this.rng)
                     combatLog.textContent = this.name + " bursts with holy power, bashing their opponent and critically hitting dealing " + (this.damage * this.rng * 2 + 3) + " damage!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 3);
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking2')
                 }
@@ -264,7 +266,7 @@ class cleric extends character {
                 } else {
                     player.health = player.health + (this.damage*this.rng + 1);
                 }
-                hpLogger(player, hpLog);
+                postAction(player, hpLog);
             } else {
                 combatLog.textContent = this.name + " tried to cast a spell, but their prayer fell on deaf ears!";
             } 
@@ -283,7 +285,7 @@ class thief extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " hits with a sneaky stab, dealing " + (this.damage * this.rng + 1 )+ " damage to their opponent!";
                     player.health = player.health - (this.damage * this.rng + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 6) {
                     combatLog.textContent = this.name + "'s dagger fails to find their target!";
                 } else if (this.rng = 20) { 
@@ -291,7 +293,7 @@ class thief extends character {
                     console.log(this.rng)
                     combatLog.textContent = this.name + " capitalizes on their opponent's inattention, their quick thrust is a critical hit and deals " + (this.damage * this.rng * 2 + 1 )+ " damage to their opponent!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 1 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking')
                 }
@@ -306,7 +308,7 @@ class thief extends character {
                     console.log("Thief rolled a " + this.rng)
                     combatLog.textContent = this.name + " stabs their target with a rapid flurry of blows, dealing " + (this.damage * this.rng + 3 )+ " damage to their opponent!";
                     player.health = player.health - (this.damage * this.rng + 3 );
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else if (this.rng < 12) {
                     combatLog.textContent = this.name + " attempts a daring maneuver, but steps on their tail and trips!";
                 } else if (this.rng = 20) { 
@@ -314,7 +316,7 @@ class thief extends character {
                     console.log("Thief rolled a " + this.rng)
                     combatLog.textContent = this.name + " overwhelms their oppenent with a precise flurry of blows, and critically hits with a heavy attack for " + (this.damage * this.rng * 2 + 3) + " damage to their opponent!!!";
                     player.health = player.health - (this.damage * this.rng * 2 + 3);
-                    hpLogger(player, hpLog);
+                    postAction(player, hpLog);
                 } else {
                     console.log('notworking2')
                 }
@@ -334,8 +336,7 @@ class thief extends character {
                 }
                 console.log(((player.damage * player.rng) + 1) + "damage");
                 console.log(opPlayer);
-                hpLogger(player, hpLog);
-                hpLogger(opPlayer, opHpLog);
+                postAction(player, hpLog, opPlayer, opHpLog);
             } else if (this.rng < 10) {
                 combatLog.textContent = this.name + " misses their Steal Health!";
             } else if (this.rng = 20) { 
@@ -348,8 +349,7 @@ class thief extends character {
                     opPlayer.health = opPlayer.health + ((this.damage * this.rng * 2) + 1 );
                 }
                 console.log(opPlayer);
-                hpLogger(player, hpLog);
-                hpLogger(opPlayer, opHpLog);
+                postAction(player, hpLog, opPlayer, opHpLog);
             } else {
             console.log('notworking3')
             }
@@ -399,18 +399,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 1) {
             if (actionID === 1) {
                 Fighter.fighterLight(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Fighter.fighterHeavy(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Fighter.fighterSpecial(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -419,18 +413,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 2) {
             if (actionID === 1) {
                 Mage.mageLight(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Mage.mageHeavy(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Mage.mageSpecial(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -439,18 +427,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 3) {
             if (actionID === 1) {
                 Cleric.clericLight(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Cleric.clericHeavy(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Cleric.clericSpecial(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return    
             } else {
                 console.log('error, not a valid action id')
@@ -458,18 +440,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 4) {
             if (actionID === 1) {
                 Thief.thiefLight(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Thief.thiefHeavy(player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Thief.thiefSpecial(player1Char, hpLog1, player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -501,18 +477,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 1) {
             if (actionID === 1) {
                 Fighter.fighterLight(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Fighter.fighterHeavy(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Fighter.fighterSpecial(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -521,18 +491,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 2) {
             if (actionID === 1) {
                 Mage.mageLight(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Mage.mageHeavy(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Mage.mageSpecial(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -541,18 +505,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 3) {
             if (actionID === 1) {
                 Cleric.clericLight(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Cleric.clericHeavy(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
-                Cleric.clericSpecial(player1Char, hpLog1)
-                dynHP()
-                endGame() 
+                Cleric.clericSpecial(player1Char, hpLog1) 
                 return   
             } else {
                 console.log('error, not a valid action id')
@@ -561,18 +519,12 @@ function actionSelector (active,classID, actionID) {
         } else if (classID == 4) {
             if (actionID === 1) {
                 Thief.thiefLight(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 2) {
                 Thief.thiefHeavy(player0Char, hpLog0)
-                dynHP()
-                endGame()
                 return
             } else if (actionID === 3) {
                 Thief.thiefSpecial(player0Char, hpLog0, player1Char, hpLog1)
-                dynHP()
-                endGame()
                 return
             } else {
                 console.log('error, not a valid action id')
@@ -817,6 +769,12 @@ function endGame (){
     }
 }
 
+// function that runs all post action functions (hp tracker, etc)
+function postAction(player, hpLog, opPlayer, opHpLog) {
+    hpLogger(player, hpLog, opPlayer, opHpLog);
+    dynHP();
+    endGame();
+}
 
 //Event listeners for character select
 //test func

@@ -168,3 +168,27 @@ li:hover{
 .active {
     display: inline-block;
 }
+
+.modal-content {
+    background-color: rgb(247,241,222);
+    border-radius: 25px;
+    font-family: 'Varela Round', sans-serif;
+}
+
+#errorTitle {
+    font-weight: bolder;
+}
+
+.btn {
+    color: black;
+    background-color:  rgb(182,168,155);
+}
+
+.btn:hover{
+    background-color:  rgb(215,241,242);
+    color:black;
+}
+
+#errorLog {
+    text-align: center;
+}

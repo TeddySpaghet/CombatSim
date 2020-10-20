@@ -17,9 +17,8 @@ atkLog = document.querySelector('#atklog');
 console.log(combatLog);
 score1 = 0;
 score2 = 0;
-document.getElementById('score1').innerText = "P2 Score: 0"
-document.getElementById('score0').innerText = "P1 Score: 0"
-
+document.getElementById('score1').innerText = "P2 Score: 0";
+document.getElementById('score0').innerText = "P1 Score: 0";
 
 //base character creation and attribute allocation
 
@@ -369,17 +368,13 @@ const Fighter = new fighter ("Sir Theodryn", 45, 45, 1, "assets/warriorpusheen.p
 const Mage = new mage ("Crazy Melody", 35, 35, 1, "assets/magepusheen.png", 0);
 const Thief = new thief ("Hendrick", 40, 40, 1, "assets/thiefpusheenupdated.png", 0);
 
+// Selector function
 
-// BIG BRAIN STRATS FOR STREAMLINING OF THE ATTACK CODE THAT ALLOWS CREATION OF MULTIPLE CHARACTERS AND EASY INTEGRATION
-// Create a massive function that incorporates all of the attack functions
-// have it run the characterclass ID as argument
-// run a bunch of conditionals that will run the attack functions based on ID
-// setup event listeners that can vary based on ID
-// ???
-// PROFIT
 function actionSelector (active,classID, actionID) {
     if (activePlayer !== active) {
-        return alert("Only the active Player can attack!");
+        $('#errorModal').modal('toggle')
+        document.getElementById('errorLog').innerText = "Only the active Player can attack!"
+        return
     }    
     if (activePlayer === 0) {
         if (classID == 0) {
@@ -548,7 +543,9 @@ document.getElementById('bStart').addEventListener('click', () => {
         document.getElementById('selectScreen').style.display = "none";
         nextPlayer()
     } else {
-        return alert('You must both select a character before being able to battle!');
+        $('#errorModal').modal('toggle');
+        document.getElementById('errorLog').innerText = "You must both select a character before being able to battle!";
+        return 
     }
 });
 
@@ -823,7 +820,9 @@ function actionEvtListnr(event) {
         nextPlayer();
         element.removeEventListener('click', actionEvtListnr);
     } else {
-        return alert('You have already selected a character!');
+        $('#errorModal').modal('toggle');
+        document.getElementById('errorLog').innerText = "You have already selected a character!";
+        return 
     }
 } 
 //actionEvtListnr('fighterID');

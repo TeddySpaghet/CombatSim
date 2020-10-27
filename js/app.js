@@ -1,13 +1,5 @@
 console.log("sanitycheck")
 
-/* 
-Class for characters that helps keep code dry.
-Properties for characters should be : name, health, damage, icon, atk1, atk2, atk3
-attack1 and attack2 should be a low dmg, high % chance to hit and high dmd, lower % chance to hit.
-attack3 should be a unique ability flavored to the character
-I should probably have an RNG function in the global context that can be called by each attack that needs it
-*/
-
 //define global game variables
 
 let activePlayer, gamePlaying, player0Char, player1Char, combatLog, player0Class, player1Class, score1, score2
